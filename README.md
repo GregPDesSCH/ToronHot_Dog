@@ -8,27 +8,27 @@ End Date:
 
 ## Credits
 
-** DEVELOPMENT TEAM **
-* Project Designer and Programmer *
+**DEVELOPMENT TEAM**
+*Project Designer and Programmer*
 Gregory P. Desrosiers
 
-* Development Mentor *
+*Development Mentor*
 David Pagurek van Mossel
 
 
-** UNIVERSITY OF WATERLOO **
+**UNIVERSITY OF WATERLOO**
 
-* Producer *
+*Producer*
 Derek Rayside
 
-* Executive Producers *
+*Executive Producers*
 Patrick Lam
 Pearl Sullivan
 
 
-** SPECIAL THANKS **
+**SPECIAL THANKS**
 
-* Google Kitchener *
+*Google Kitchener*
 Caitlin McDonough
 
 
