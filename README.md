@@ -1,24 +1,35 @@
-# README
+# ToronHot Dog
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Created and Developed by Gregory P. Desrosiers (GregPDesSCH)
+** University of Waterloo, Software Engineering 2019 **
 
-Things you may want to cover:
+Start Date: January 27, 2018
+End Date:
 
-* Ruby version
+## Credits
 
-* System dependencies
+** DEVELOPMENT TEAM **
+* Project Designer and Programmer *
+Gregory P. Desrosiers
 
-* Configuration
+* Development Mentor *
+David Pagurek van Mossel
 
-* Database creation
 
-* Database initialization
+** UNIVERSITY OF WATERLOO **
 
-* How to run the test suite
+* Producer *
+Derek Rayside
 
-* Services (job queues, cache servers, search engines, etc.)
+* Executive Producers *
+Patrick Lam
+Pearl Sullivan
 
-* Deployment instructions
 
-* ...
+** SPECIAL THANKS **
+
+* Google Kitchener *
+Caitlin McDonough
+
+
+Source Code © 2018 Gregory Desrosiers. All rights reserved.
