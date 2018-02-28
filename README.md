@@ -1,7 +1,7 @@
 # ToronHot Dog
 
 ## Created and Developed by Gregory P. Desrosiers (GregPDesSCH)
-** University of Waterloo, Software Engineering 2019 **
+**University of Waterloo, Software Engineering 2019**
 
 Start Date: January 27, 2018
 End Date:
