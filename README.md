@@ -44,7 +44,12 @@ Pearl Sullivan
 
 Caitlin McDonough
 
+*Websites and QA*
+
+[StackOverflow.com](https://stackoverflow.com/)
+[Ruby on Rails Guides](http://guides.rubyonrails.org)
 
 
 
-Source Code © 2018 Gregory Desrosiers. All rights reserved.
+
+Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
