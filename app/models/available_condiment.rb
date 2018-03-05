@@ -1,0 +1,2 @@
+class AvailableCondiment < ApplicationRecord
+end

@@ -11,10 +11,6 @@
 =end
 
 class Drink < ApplicationRecord
-  self.primary_key = "drink_id"                                                 # Sets name of primary key column to condiment_id for proper mapping
-  belongs_to :HotDogStand                                                       # One-to-one relationship with the Hot Dog Stand model
+  #belongs_to :hot_dog_stands, class_name: HotDogStand                           # One-to-one relationship with the Hot Dog Stand model
   validates :drinkName, presence: true                                          # Makes sure the name of the drink is non-null
-  validates :price, presence: true                                              # Makes sure the price of the drink is non-null
-  # Insight from https://stackoverflow.com/questions/34037823/rails-regexp-validation-for-number-of-decimal-points?rq=1
-  validates :price, format: {with: /\A\d+(?:\.\d{0,2})?\z/}, numericality: true # Makes sure the price of the drink is a floating-point value
 end

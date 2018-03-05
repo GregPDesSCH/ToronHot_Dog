@@ -11,7 +11,6 @@
 =end
 
 class Condiment < ApplicationRecord
-  self.primary_key = "condiment_id"           # Sets name of primary key column to condiment_id for proper mapping
-  belongs_to :HotDogStand                     # One-to-one relationship with the Hot Dog Stand model
-  validates :nameOfCondiment, presence: true  # Makes sure the name of the condiment is non-null
+  #belongs_to :hot_dog_stands, class_name: HotDogStand   # One-to-one relationship with the Hot Dog Stand model
+  validates :nameOfCondiment, presence: true            # Makes sure the name of the condiment is non-null
 end
