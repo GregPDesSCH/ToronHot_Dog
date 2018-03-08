@@ -1,2 +1,52 @@
+<%#
+  ToronHot Dog
+  View Templates - Main Page
+
+  Start Date: March 7, 2018
+  End Date: March 7, 2018
+
+  File Name: main.html.erb
+
+  Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
+
+%>
+
+
 <h1>Customers#main</h1>
 <p>Find me in app/views/customers/main.html.erb</p>
+
+<div>
+  <h4>Which food do you prefer getting?</h4>
+  <div>
+    <% @foods.each do |currentFood|  %>
+      <div>
+        <%= check_box_tag 'food', currentFood.foodName %>
+        <%= label_tag 'food', currentFood.foodName %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <h4>Which drink do you prefer getting?</h4>
+  <div>
+    <% @drinks.each do |currentDrink|  %>
+      <div>
+        <%= check_box_tag 'drink', currentDrink.drinkName %>
+        <%= label_tag 'drink', currentDrink.drinkName %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <h4>Which condiment do you prefer having the food with?</h4>
+  <div>
+    <% @condiments.each do |currentCondiment|  %>
+      <div>
+        <%= check_box_tag 'condiments', currentCondiment.nameOfCondiment %>
+        <%= label_tag 'condiments', currentCondiment.nameOfCondiment %>
+      </div>
+    <% end %>
+  </div>
+</div>

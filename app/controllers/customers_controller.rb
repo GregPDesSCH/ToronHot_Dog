@@ -1,5 +1,8 @@
 class CustomersController < ApplicationController
   def main
+    @foods = Food.all
+    @drinks = Drink.all
+    @condiments = Condiment.all
   end
 
   def test
