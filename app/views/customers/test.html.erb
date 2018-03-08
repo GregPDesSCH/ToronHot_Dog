@@ -1,0 +1,101 @@
+<%#
+asdfsdfasdfasf
+
+%>
+
+
+<h1>ToronHot Dog Test Page</h1>
+
+<h3> All records of the Food class </h3>
+<p>Number of records: <%= @foods.length %></p>
+<% @foods.each do |currentFood| %>
+  <p>
+    <div>Food ID: <%= currentFood.id %></div>
+    <div>Food Name: <%= currentFood.foodName %></div>
+  </p>
+<% end %>
+
+
+<h3> All records of the Drink class </h3>
+<p>Number of records: <%= @drinks.length %></p>
+<% @drinks.each do |currentDrink| %>
+  <p>
+    <div>Drink ID: <%= currentDrink.id %></div>
+    <div>Drink Name: <%= currentDrink.drinkName %></div>
+  </p>
+<% end %>
+
+
+<h3> All records of the Condiment class</h3>
+<p>Number of records: <%= @condiments.length %></p>
+<% @condiments.each do |currentCondiment| %>
+  <p>
+    <div>Condiment ID: <%= currentCondiment.id %></div>
+    <div>Condiment Name: <%= currentCondiment.nameOfCondiment %></div>
+  </p>
+<% end %>
+
+
+<h3>All records of the Hot Dog Stand class</h3>
+<p>Number of records: <%= @hotDogStands.length %></p>
+<% @hotDogStands.each do |currentStand| %>
+  <p>
+    <div>Stand ID: <%= currentStand.id %></div>
+    <div>Stand Name: <%= currentStand.nameOfStand %></div>
+    <div>Latitude: <%= currentStand.latitude %></div>
+    <div>Longitude: <%= currentStand.longitude %></div>
+    <div>Customer Rating: <%= currentStand.customerRating %></div>
+    <% if !currentStand.additionalOptions.empty? %>
+      <div>Additional Options:
+        <% currentStand.additionalOptions.each do |key| %>
+          <div><%= currentStand.additionalOptions.keys[0] %>
+            <% currentStand.additionalOptions.values[0].each do |value| %>
+              <div><%= value %></div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div>Actual Address: <%= currentStand.actualAddress %></div>
+  </p>
+<% end %>
+
+
+
+
+<h3>All records of the Food Price class</h3>
+<p>Number of records: <%= @foodPrice.length %></p>
+<% @foodPrice.each do |currentFoodPrice| %>
+  <p>
+    <div>Food Price ID: <%= currentFoodPrice.id %></div>
+    <div>Hot Dog Stand ID: <%= currentFoodPrice.hot_dog_stands_id %></div>
+    <div>Food ID: <%= currentFoodPrice.food_id %></div>
+    <div>Price: <%= currentFoodPrice.price %></div>
+  </p>
+<% end %>
+
+
+
+<h3>All records of the Drink Price class</h3>
+<p>Number of records: <%= @drinkPrice.length %></p>
+<% @drinkPrice.each do |currentDrinkPrice| %>
+  <p>
+    <div>Drink Price ID: <%= currentDrinkPrice.id %></div>
+    <div>Hot Dog Stand ID: <%= currentDrinkPrice.hot_dog_stands_id %></div>
+    <div>Drink ID: <%= currentDrinkPrice.drink_id %></div>
+    <div>Price: <%= currentDrinkPrice.price %></div>
+  </p>
+<% end %>
+
+
+
+<h3>All records of the Available Condiments class</h3>
+<p>Number of records: <%= @availableCondiments.length %></p>
+<% @availableCondiments.each do |currentAvailableCondiment| %>
+  <p>
+    <div>Available Condiment ID: <%= currentAvailableCondiment.id %></div>
+    <div>Hot Dog Stand ID: <%= currentAvailableCondiment.hot_dog_stands_id %></div>
+    <div>Condiment ID: <%= currentAvailableCondiment.condiment_id %></div>
+  </p>
+<% end %>

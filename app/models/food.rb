@@ -3,7 +3,7 @@
     Data Models - Hot Dog Stand
 
     Start Date: March 1, 2018
-    End Date:
+    End Date: March 4, 2018
 
     File Name: food.rb
 
@@ -11,6 +11,7 @@
 =end
 
 class Food < ApplicationRecord
-  #belongs_to :hot_dog_stands, class_name: HotDogStand                           # One-to-one relationship with the Hot Dog Stand model
-  validates :foodName, presence: true                                           # Makes sure the name of the food is non-nulls
+  
+  # Make sure the name of the food is non-null.
+  validates :foodName, presence: true
 end

@@ -1,9 +1,9 @@
 =begin
     ToronHot Dog
-    Data Models - Hot Dog Stand
+    Data Models - Drink
 
     Start Date: March 1, 2018
-    End Date:
+    End Date: March 4, 2018
 
     File Name: drink.rb
 
@@ -11,6 +11,6 @@
 =end
 
 class Drink < ApplicationRecord
-  #belongs_to :hot_dog_stands, class_name: HotDogStand                           # One-to-one relationship with the Hot Dog Stand model
-  validates :drinkName, presence: true                                          # Makes sure the name of the drink is non-null
+  # Make sure the name of the drink is non-null.
+  validates :drinkName, presence: true
 end

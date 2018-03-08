@@ -1,9 +1,9 @@
 =begin
     ToronHot Dog
-    Data Models - Hot Dog Stand
+    Data Models - Condiment
 
     Start Date: March 1, 2018
-    End Date:
+    End Date: March 4, 2018
 
     File Name: condiment.rb
 
@@ -11,6 +11,6 @@
 =end
 
 class Condiment < ApplicationRecord
-  #belongs_to :hot_dog_stands, class_name: HotDogStand   # One-to-one relationship with the Hot Dog Stand model
-  validates :nameOfCondiment, presence: true            # Makes sure the name of the condiment is non-null
+  # Make sure the name of the condiment is non-null.
+  validates :nameOfCondiment, presence: true
 end
