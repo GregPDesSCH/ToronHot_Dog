@@ -3,7 +3,7 @@
   View Templates - Main Page
 
   Start Date: March 7, 2018
-  End Date: March 7, 2018
+  End Date: March , 2018
 
   File Name: main.html.erb
 
@@ -11,42 +11,121 @@
 
 %>
 
-
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <h1>Customers#main</h1>
 <p>Find me in app/views/customers/main.html.erb</p>
 
-<div>
-  <h4>Which food do you prefer getting?</h4>
-  <div>
-    <% @foods.each do |currentFood|  %>
-      <div>
-        <%= check_box_tag 'food', currentFood.foodName %>
-        <%= label_tag 'food', currentFood.foodName %>
-      </div>
-    <% end %>
-  </div>
-</div>
 
-<div>
-  <h4>Which drink do you prefer getting?</h4>
-  <div>
-    <% @drinks.each do |currentDrink|  %>
+<%# <%= form_tag("customers/searchResults", method: "post", id: "hotDogStandSearchEngine") do %>
+  <div id="locationReferenceSelection">
+    <h4>Where do you want to search a stand from?</h4>
+    <div>
       <div>
-        <%= check_box_tag 'drink', currentDrink.drinkName %>
-        <%= label_tag 'drink', currentDrink.drinkName %>
+        <%= radio_button_tag(:locationSelection, 'majorIntersection', :checked) %>
+        <%= label_tag 'majorIntersection', 'Major Intersection' %>
       </div>
-    <% end %>
-  </div>
-</div>
+    </div>
+    <div>
+      <div>
+        <%= radio_button_tag(:locationSelection, 'subwaySection') %>
+        <%= label_tag 'subwaySection', 'Subway Section' %>
+      </div>
+    </div>
+    <div>
+      <div>
+        <%= radio_button_tag(:locationSelection, 'landmarks') %>
+        <%= label_tag 'landmarks', 'Landmarks' %>
+      </div>
+    </div>
+    <div>
+      <div>
+        <%= radio_button_tag(:locationSelection, 'latitudeAndLongitude') %>
+        <%= label_tag 'latitudeAndLongitude', 'Latitude and Longitude' %>
+      </div>
+      <div>
+        <div>
+          <h5>Latitude: </h5>
+          <input id="latitude" type="number" name="latitude" min="43.600000" max="43.750000" value="43.642566" step="0.000001" disabled>
+        </div>
+        <div>
+          <h5>Longitude: </h5>
+          <input id="longitude" type="number" name="longitude" min="-79.510000" max="-79.260000" value="-79.387056" step="0.000001" disabled>
+        </div>
+      </div>
+    </div>
 
-<div>
-  <h4>Which condiment do you prefer having the food with?</h4>
-  <div>
-    <% @condiments.each do |currentCondiment|  %>
-      <div>
-        <%= check_box_tag 'condiments', currentCondiment.nameOfCondiment %>
-        <%= label_tag 'condiments', currentCondiment.nameOfCondiment %>
+    <div>
+      <h4>Distance Range:</h4>
+      <div id="distanceUnitSelection">
+        <%= radio_button_tag(:distanceUnit, 'metric', :checked) %>
+        <%= label_tag 'metric', 'Metric' %>
+        <%= radio_button_tag(:distanceUnit, 'imperial') %>
+        <%= label_tag 'imperial', 'US / UK Imperial' %>
       </div>
-    <% end %>
+      <select id="distanceValues">
+
+      </select>
+    </div>
+
   </div>
-</div>
+
+
+  <div>
+    <h4>Do you want a price range?</h4>
+    <div>
+      <%= radio_button_tag(:priceRangeSpecified, 'priceRangeYes', :checked) %>
+      <%= label_tag 'priceRangeYes', 'Yes' %>
+      <%= radio_button_tag(:priceRangeSpecified, 'priceRangeNo') %>
+      <%= label_tag 'priceRangeNo', 'No' %>
+    </div>
+    <div>
+      <h5>From: </h5>
+      $<input type="number" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
+    </div>
+    <div>
+      <h5>To: </h5>
+      $<input type="number" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+    </div>
+  </div>
+
+  <div>
+    <h4>Which food do you prefer getting?</h4>
+    <div id="food">
+      <% @foods.each do |currentFood|  %>
+        <div>
+          <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false, data: { "food_Index" => currentFood.id }   %>
+          <%= label_tag 'foodName' + currentFood.id.to_s, currentFood.foodName %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h4>Which drink do you prefer getting?</h4>
+    <div id="drinks">
+      <% @drinks.each do |currentDrink|  %>
+        <div>
+          <%= check_box_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, false, data: { "drink_Index" => currentDrink.id }  %>
+          <%= label_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h4>Which condiment do you prefer having the food with?</h4>
+    <div id="condiments">
+      <% @condiments.each do |currentCondiment|  %>
+        <div>
+          <%= check_box_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, false, data: { "condiment_Index" => currentCondiment.id } %>
+          <%= label_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= button_tag(type: 'submit', id: 'findHotDogStands') do %>
+    Find Hot Dog Stands
+  <% end %>
+
+<%# <% end %>

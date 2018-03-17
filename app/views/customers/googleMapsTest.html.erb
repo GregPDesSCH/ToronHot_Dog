@@ -1,0 +1,53 @@
+<h3>My Google Maps Demo</h3>
+<div id="map" style="height: 400px; width: 100%; background-color: grey;"></div>
+<script>
+  function initMap() {
+    var uluru = {lat: 43.6503521, lng: -79.3837953};
+    var mapCenter = {lat: 43.686938, lng: -79.399534};
+    var nathanPhilippsSquare = {lat: 43.652549, lng: -79.3835123};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: mapCenter
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+    var marker2 = new google.maps.Marker({
+      position: nathanPhilippsSquare,
+      map: map
+    });
+
+    var contentString = '<div id="content">'+
+           '<div id="siteNotice">'+
+           '</div>'+
+           '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
+           '<div id="bodyContent">'+
+           '<h3>Available Foods: </h3>' +
+           '<table>' +
+           '<tr><th>Side / Dish</th><th>Price</th></tr>' +
+           '<tr><th>Small french fries</th><th>$2.25</th></tr>' +
+           '</table>' +
+           '<h3>Available Drinks: </h3>' +
+           '<table>' +
+           '<tr><th>Drink</th><th>Price</th></tr>' +
+           '<tr><td>Dasani Water (750mL)</td><td>$1.25</td></tr>' +
+           '</table>' +
+           '<h3>Available Condiments: </h3>' +
+           '<p>' +
+           '</p>' +
+           '</div>'+
+           '</div>';
+
+       var infowindow = new google.maps.InfoWindow({
+         content: contentString
+       });
+
+       marker2.addListener('click', function() {
+           infowindow.open(map, marker2);
+       });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_DEVELOPMENT_API_KEY'] %>&callback=initMap">
+</script>
