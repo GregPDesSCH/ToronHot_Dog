@@ -15,6 +15,8 @@ class HotDogStand < ApplicationRecord
   # One-to-many relationship because a hot dog stand has multiple foods the user can choose.
   has_many :foods, class_name: Food
 
+  has_many :food_price, class_name: FoodPrice
+
   # One-to-many relationship because a hot dog stand has multiple drinks the user can choose.
   has_many :drinks, class_name: Drink
 

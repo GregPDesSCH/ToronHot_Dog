@@ -11,7 +11,7 @@
 =end
 
 class Food < ApplicationRecord
-  
+  has_many :food_price
   # Make sure the name of the food is non-null.
   validates :foodName, presence: true
 end

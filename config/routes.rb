@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'customers/main'
   get 'customers/test'
-  post 'customers/searchResults'
+  post 'customers/search'
+  get 'customers/searchResults'
+  get 'customers/noSearchResults'
   get 'customers/googleMapsTest'
 
   root 'customers#main'

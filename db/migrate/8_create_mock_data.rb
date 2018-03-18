@@ -388,13 +388,13 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     # 7. Sighter Dog
     ###
     # Foods
-    FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[8].id, price: 4.00
+    FoodPrice.create! hot_dog_stands_id: hotDogStands[6].id, food_id: available_foods[8].id, price: 4.00
 
     # Drinks
-    DrinkPrice.create! hot_dog_stands_id: hotDogStands[2].id, drink_id: available_drinks[0].id, price: 2.00
+    DrinkPrice.create! hot_dog_stands_id: hotDogStands[6].id, drink_id: available_drinks[0].id, price: 2.00
 
     # Condiments
-    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[2].id, condiment_id: available_condiments[0].id
+    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[6].id, condiment_id: available_condiments[0].id
 
 
 
@@ -405,13 +405,13 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     # 8. Margaret's Franks
     ###
     # Foods
-    FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[8].id, price: 4.00
+    FoodPrice.create! hot_dog_stands_id: hotDogStands[7].id, food_id: available_foods[8].id, price: 4.00
 
     # Drinks
-    DrinkPrice.create! hot_dog_stands_id: hotDogStands[2].id, drink_id: available_drinks[0].id, price: 2.00
+    DrinkPrice.create! hot_dog_stands_id: hotDogStands[7].id, drink_id: available_drinks[0].id, price: 2.00
 
     # Condiments
-    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[2].id, condiment_id: available_condiments[0].id
+    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[7].id, condiment_id: available_condiments[0].id
 
 
 
@@ -423,13 +423,13 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     # 9. Tonhouki Hot Dogs
     ###
     # Foods
-    FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[8].id, price: 4.00
+    FoodPrice.create! hot_dog_stands_id: hotDogStands[8].id, food_id: available_foods[8].id, price: 4.00
 
     # Drinks
-    DrinkPrice.create! hot_dog_stands_id: hotDogStands[2].id, drink_id: available_drinks[0].id, price: 1.25
+    DrinkPrice.create! hot_dog_stands_id: hotDogStands[8].id, drink_id: available_drinks[0].id, price: 1.25
 
     # Condiments
-    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[2].id, condiment_id: available_condiments[0].id
+    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[8].id, condiment_id: available_condiments[0].id
 
   end
 end

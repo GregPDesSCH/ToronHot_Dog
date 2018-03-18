@@ -93,7 +93,7 @@
     <div id="food">
       <% @foods.each do |currentFood|  %>
         <div>
-          <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false, data: { "food_Index" => currentFood.id }   %>
+          <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false, data: { "food_Index" => currentFood.id}   %>
           <%= label_tag 'foodName' + currentFood.id.to_s, currentFood.foodName %>
         </div>
       <% end %>

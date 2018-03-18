@@ -8,9 +8,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag('jquery-3.3.1.min.js') %>
     <%= javascript_include_tag('toronhot_dog.js') %>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_DEVELOPMENT_API_KEY'] %>&callback=initMap">
+    </script>
   </head>
 
   <body>
-    <%= yield %>
+    <div id="mainDiv">
+      <%= yield %>
+    </div>
   </body>
 </html>

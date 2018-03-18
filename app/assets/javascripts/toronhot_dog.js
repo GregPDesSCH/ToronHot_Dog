@@ -35,6 +35,49 @@ const IMPERIAL_VALUES = {
   "5 mi": 5
 };
 
+function initMap() {
+  console.log("initMap function has been called.");
+  var uluru = {lat: 43.6503521, lng: -79.3837953};
+  var mapCenter = {lat: 43.642566, lng: -79.387056};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: mapCenter
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+
+  /*var contentString = '<div id="content">'+
+         '<div id="siteNotice">'+
+         '</div>'+
+         '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
+         '<div id="bodyContent">'+
+         '<h3>Available Foods: </h3>' +
+         '<table>' +
+         '<tr><th>Side / Dish</th><th>Price</th></tr>' +
+         '<tr><th>Small french fries</th><th>$2.25</th></tr>' +
+         '</table>' +
+         '<h3>Available Drinks: </h3>' +
+         '<table>' +
+         '<tr><th>Drink</th><th>Price</th></tr>' +
+         '<tr><td>Dasani Water (750mL)</td><td>$1.25</td></tr>' +
+         '</table>' +
+         '<h3>Available Condiments: </h3>' +
+         '<p>' +
+         '</p>' +
+         '</div>'+
+         '</div>';
+
+     var infowindow = new google.maps.InfoWindow({
+       content: contentString
+     });
+
+     marker2.addListener('click', function() {
+         infowindow.open(map, marker2);
+     });*/
+}
+
 $(function() {
 
   var $distanceDropdown = $("#distanceValues");
@@ -80,6 +123,12 @@ $(function() {
   });
 
 
+
+  $("body").on('click', '#goBackSearchEnginePageLink', function (){
+    $.get("customers/main", function( renderedHtml ) {
+      $("#mainDiv").html(renderedHtml);
+    });
+  });
 
 
   $("#findHotDogStands").click(function() {
@@ -168,12 +217,30 @@ $(function() {
 
     $.ajax({
       method: "POST",
-      url: "customers/searchResults",
+      async: false,
+      url: "customers/search",
       headers: {
         'X-CSRF-Token': $("#authenticity_token").val()
       },
       data: searchCriteria,
-      dataType: "json"
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        console.log("Number of search results: " + data.numberOfResults);
+
+        if (data.numberOfResults > 0)
+          $.get("customers/searchResults", function( renderedHtml ) {
+            $("#mainDiv").html(renderedHtml);
+            initMap();
+          });
+        else
+          $.get("customers/noSearchResults", function( renderedHtml ) {
+            $("#mainDiv").html(renderedHtml);
+          });
+
+
+
+      }
     });
   })
 })
