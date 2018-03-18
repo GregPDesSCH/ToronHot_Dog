@@ -2,15 +2,15 @@
     ToronHot Dog
     Frontend - Application Behavior Code
 
-    Start Date: March 1, 2018
-    End Date: March 4, 2018
+    Start Date: March 17, 2018
+    End Date: March , 2018
 
-    File Name: toronhot_dog.rb
+    File Name: toronhot_dog.js
 
     Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
 */
 const METRIC_VALUES = {
-  "No Range": Number.POSITIVE_INFINITY,
+  "No Range": 0,
   "10 m": 0.01,
   "50 m": 0.05,
   "100 m": 0.1,
@@ -23,7 +23,7 @@ const METRIC_VALUES = {
 }
 
 const IMPERIAL_VALUES = {
-  "No Range": Number.POSITIVE_INFINITY,
+  "No Range": 0,
   "50 ft": 0.0094697,
   "100 ft": 0.0189394,
   "200 ft": 0.0378788,
@@ -101,7 +101,13 @@ $(function() {
     }
 
     // Distance Range
-    //if ($("#distanceUnit_metric").is(':checked'
+    if ($("#distanceUnit_metric").is(':checked'))
+      searchCriteria.distanceUnit = "KM";
+    else
+      searchCriteria.distanceUnit = "MI";
+
+    searchCriteria.distanceRange = $("#distanceValues").find('option:selected').val();
+    //console.log(searchCriteria.distanceRange);
 
 
     // Price Range
@@ -121,27 +127,42 @@ $(function() {
 
 
     // Cycle through all the condiment selections
-    searchCriteria.selectedFoods = [];
+    // Insight from https://stackoverflow.com/questions/6622224/jquery-removes-empty-arrays-when-sending
+    searchCriteria.selectedFoods = {
+      values: [],
+      length: 0
+    };
     //console.log($('#food input:checked'));
     $('#food input:checked').each(function() {
       //console.log($(this).data().foodIndex);
-      searchCriteria.selectedFoods.push($(this).data().foodIndex);
+      searchCriteria.selectedFoods.values.push($(this).data().foodIndex);
+      searchCriteria.selectedFoods.length++;
     });
 
     // Cycle through all the drink selections
-    searchCriteria.selectedDrinks = [];
+    searchCriteria.selectedDrinks = {
+      values: [],
+      length: 0
+    };
+
     //console.log($('#drinks input:checked'));
     $('#drinks input:checked').each(function() {
       //console.log($(this).data().drinkIndex);
-      searchCriteria.selectedDrinks.push($(this).data().drinkIndex);
+      searchCriteria.selectedDrinks.values.push($(this).data().drinkIndex);
+      searchCriteria.selectedDrinks.length++;
     });
 
     // Cycle through all the condiment selections
-    searchCriteria.selectedCondiments = [];
+    searchCriteria.selectedCondiments = {
+      values: [],
+      length: 0
+    };
+
     //console.log($('#condiments input:checked'));
     $('#condiments input:checked').each(function() {
       //console.log($(this).data().condimentIndex);
-      searchCriteria.selectedCondiments.push($(this).data().condimentIndex);
+      searchCriteria.selectedCondiments.values.push($(this).data().condimentIndex);
+      searchCriteria.selectedCondiments.length++;
     });
 
 
