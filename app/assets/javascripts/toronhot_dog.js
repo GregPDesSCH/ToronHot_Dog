@@ -35,18 +35,77 @@ const IMPERIAL_VALUES = {
   "5 mi": 5
 };
 
-function initMap() {
+function initMap(searchResultsData) {
+
+  if (searchResultsData == null)
+    return
+
   console.log("initMap function has been called.");
+  console.log(searchResultsData);
   var uluru = {lat: 43.6503521, lng: -79.3837953};
   var mapCenter = {lat: 43.642566, lng: -79.387056};
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: mapCenter
   });
-  var marker = new google.maps.Marker({
+
+  var hotDogStandsToDisplay = [];
+  var hotDogStandsInformationWindows = [];
+
+  console.log(searchResultsData.resultingHotDogStands);
+
+  for (var index = 0; index < searchResultsData.resultingHotDogStands.length; index++) {
+    var currentHotDogStand = searchResultsData.resultingHotDogStands[index];
+    console.log(currentHotDogStand);
+    var standLocation = {lat: parseFloat(currentHotDogStand.latitude), lng: parseFloat(currentHotDogStand.longitude)}
+
+    hotDogStandsToDisplay.push(new google.maps.Marker({
+      position: standLocation,
+      map: map,
+      index: index
+    }));
+
+
+    var contentString = '<div id="content">'+
+           '<div id="siteNotice">'+
+           '</div>'+
+           '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
+           '<div id="bodyContent">'+
+           '<h3>Available Foods: </h3>' +
+           '<table>' +
+           '<tr><th>Side / Dish</th><th>Price</th></tr>' +
+           '<tr><th>Small french fries</th><th>$2.25</th></tr>' +
+           '</table>' +
+           '<h3>Available Drinks: </h3>' +
+           '<table>' +
+           '<tr><th>Drink</th><th>Price</th></tr>' +
+           '<tr><td>Dasani Water (750mL)</td><td>$1.25</td></tr>' +
+           '</table>' +
+           '<h3>Available Condiments: </h3>' +
+           '<p>' +
+           '</p>' +
+           '</div>'+
+           '</div>';
+
+
+    hotDogStandsInformationWindows.push(new google.maps.InfoWindow({
+      content: "TEST"
+    }));
+
+    google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
+      //console.log(this.index);
+
+    //  console.log(index);
+      //console.log(hotDogStandsInformationWindows[index]);
+    //  console.log(hotDogStandsToDisplay[index]);
+      hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
+    });
+  }
+
+  /*var marker = new google.maps.Marker({
     position: uluru,
     map: map
-  });
+  });*/
 
   /*var contentString = '<div id="content">'+
          '<div id="siteNotice">'+
@@ -231,7 +290,7 @@ $(function() {
         if (data.numberOfResults > 0)
           $.get("customers/searchResults", function( renderedHtml ) {
             $("#mainDiv").html(renderedHtml);
-            initMap();
+            initMap(data);
           });
         else
           $.get("customers/noSearchResults", function( renderedHtml ) {
