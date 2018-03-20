@@ -35,6 +35,42 @@ const IMPERIAL_VALUES = {
   "5 mi": 5
 };
 
+
+const MAJOR_INTERSECTIONS = {
+  "": {latitude: 43.6425723, longitude: -79.3870772}
+};
+
+const SUBWAY_STATIONS = {
+  "Union": {latitude: 43.6425723, longitude: -79.3870772},
+  "King": {latitude: 43.6425723, longitude: -79.3870772},
+  "Queen": {latitude: 43.6425723, longitude: -79.3870772},
+  "Dundas": {latitude: 43.6425723, longitude: -79.3870772},
+  "College": {latitude: 43.6425723, longitude: -79.3870772},
+  "Wellesley": {latitude: 43.6425723, longitude: -79.3870772},
+  "Bloor-Yonge": {latitude: 43.6425723, longitude: -79.3870772},
+  "St Patrick": {latitude: 43.6425723, longitude: -79.3870772},
+  "Queen's Park": {latitude: 43.6425723, longitude: -79.3870772},
+  "Museum": {latitude: 43.6425723, longitude: -79.3870772},
+};
+
+const LANDMARKS = {
+  "CN Tower / Ripley's Aquarium of Canada / Rogers Centre" : {latitude: 43.6425723, longitude: -79.3870772},
+  "Air Canada Centre" : {latitude: 43.6434301, longitude: -79.3878058},
+  "Yonge-Dundas Square" : {latitude: 43.6560974, longitude: -79.3806114},
+  "Nathan-Philipps Square" : {latitude: 43.6522129, longitude: -79.3834585},
+  "Union Station" : {latitude: 43.6455067, longitude: -79.3808491},
+  "Royal Ontario Museum" : {latitude: 43.6677505, longitude: -79.3946546},
+  "Hockey Hall of Fame" : {latitude: 43.6472791, longitude: -79.3777866},
+  "Toronto Eaton Centre" : {latitude: 43.6534511, longitude: -79.3806509},
+  "Princess of Wales Theatre" : {latitude: 43.6468124, longitude: -79.3891757},
+  "Art Gallery of Ontario" : {latitude: 43.6535753, longitude: -79.3925445},
+  "Toronto City Hall" : {latitude: 43.6534544, longitude: -79.3840806},
+  "Riverdale Farm" : {latitude: 43.6670742, longitude: -79.3612412},
+  "Saint Lawrence Market" : {latitude: 43.6485566, longitude: -79.3715872},
+  "Harbourfront Centre" : {latitude: 43.6388248, longitude: -79.3819113},
+  "Roundhouse Park / Steam Whistle Brewery / The Rec Room" : {latitude: 43.6410088, longitude: -79.3861289},
+};
+
 function initMap(searchResultsData) {
 
   if (searchResultsData == null)
@@ -144,6 +180,14 @@ $(function() {
     $distanceDropdown.append($("<option></option>")
       .attr("value", value).text(key));
     });
+
+
+  var $landmarks = $("#landmarks");
+  $.each(LANDMARKS, function(key,value) {
+    $landmarks.append($("<option></option>")
+      .attr("data-latitude", value.latitude).attr("data-longitude", value.longitude).text(key));
+    });
+
 
   $("#priceRangeSpecified_priceRangeYes").click(function() {
     $("#minimumPrice").prop('disabled', false);
