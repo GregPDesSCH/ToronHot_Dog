@@ -37,7 +37,86 @@ const IMPERIAL_VALUES = {
 
 
 const MAJOR_INTERSECTIONS = {
-  "": {latitude: 43.6425723, longitude: -79.3870772}
+  "Queens Quay" : {
+    "Queens Quay / Lower Sherbourne Street": {latitude: 43.645176, longitude: -79.365437},
+    "Queens Quay / Lower Jarvis Street": {latitude: 43.643997, longitude: -79.369029},
+    "Queens Quay / Yonge Street": {latitude: 43.641974, longitude: -79.374635},
+    "Queens Quay / Bay Street": {latitude: 43.641185, longitude: -79.376868},
+    "Queens Quay / York Street": {latitude: 43.640063, longitude: -79.380155},
+    "Queens Quay / Bay Street": {latitude: 43.639619, longitude: -79.382793},
+    "Queens Quay / Lower Simcoe Street": {latitude: 43.639619, longitude: -79.382793},
+    "Queens Quay / Spadina Avenue": {latitude: 43.637743, longitude: -79.391906},
+    "Queens Quay / Bathrust Street": {latitude: 43.636524, longitude: -79.399658}
+  },
+  "Front Street" : {
+    "Front Street / Lower Sherbourne Street": {latitude: 43.650384, longitude: -79.367921},
+    "Front Street / Jarvis Street": {latitude: 43.649402, longitude: -79.371405},
+    "Front Street / Yonge Street": {latitude: 43.646888, longitude: -79.376965},
+    "Front Street / Bay Street": {latitude: 43.646009, longitude: -79.379111},
+    "Front Street / York Street": {latitude: 43.645218, longitude: -79.382504},
+    "Front Street / Simcoe Street": {latitude: 43.644763, longitude: -79.385015},
+    "Front Street / Spadina Avenue": {latitude: 43.642741, longitude: -79.393836},
+    "Front Street / Bathrust Street": {latitude: 43.638893, longitude: -79.400610}
+  },
+  "King Street" : {
+    "King Street / Sherbourne Street": {latitude: 43.651276, longitude: -79.368257},
+    "King Street / Jarvis Street": {latitude: 43.650438, longitude: -79.371910},
+    "King Street / Yonge Street": {latitude: 43.649160, longitude: -79.377877},
+    "King Street / Bay Street": {latitude: 43.648627, longitude: -79.380240},
+    "King Street / University Avenue": {latitude: 43.647653, longitude: -79.384850},
+    "King Street / Simcoe Street": {latitude: 43.647395, longitude: -79.386085},
+    "King Street / Spadina Avenue": {latitude: 43.645487, longitude: -79.394900},
+    "King Street / Bathrust Street": {latitude: 43.643882, longitude: -79.402653}
+  },
+  "Adelaide Street" : {
+    "Adelaide Street / Sherbourne Street": {latitude: 43.652132, longitude: -79.368644},
+    "Adelaide Street / Jarvis Street": {latitude: 43.651541, longitude: -79.372367},
+    "Adelaide Street / Yonge Street": {latitude: 43.650429, longitude: -79.378433},
+    "Adelaide Street / Bay Street": {latitude: 43.649887, longitude: -79.380783},
+    "Adelaide Street / University Avenue": {latitude: 43.648870, longitude: -79.385535},
+    "Adelaide Street / Simcoe Street": {latitude: 43.648642, longitude: -79.386599},
+    "Adelaide Street / Spadina Avenue": {latitude: 43.646751, longitude: -79.395524},
+    "Adelaide Street / Bathrust Street": {latitude: 43.645222, longitude: -79.403205}
+  },
+  "Richmond Street" : {
+    "Richmond Street / Sherbourne Street": {latitude: 43.653393, longitude: -79.369115},
+    "Richmond Street / Jarvis Street": {latitude: 43.652880, longitude: -79.372932},
+    "Richmond Street / Yonge Street": {latitude: 43.651721, longitude: -79.378995},
+    "Richmond Street / Bay Street": {latitude: 43.651179, longitude: -79.381323},
+    "Richmond Street / University Avenue": {latitude: 43.650079, longitude: -79.386261},
+    "Richmond Street / Simcoe Street": {latitude: 43.649875, longitude: -79.387150},
+    "Richmond Street / Spadina Avenue": {latitude: 43.647852, longitude: -79.396018},
+    "Richmond Street / Bathrust Street": {latitude: 43.646464, longitude: -79.403705}
+  },
+  "Queen Street" : {
+    "Queen Street / Sherbourne Street": {latitude: 43.654531, longitude: -79.369460},
+    "Queen Street / Jarvis Street": {latitude: 43.653719, longitude: -79.373199},
+    "Queen Street / Yonge Street": {latitude: 43.652407, longitude: -79.379287},
+    "Queen Street / Bay Street": {latitude: 43.651831, longitude: -79.382132},
+    "Queen Street / University Avenue": {latitude: 43.650871, longitude: -79.386613},
+    "Queen Street / Simcoe Street": {latitude: 43.650655, longitude: -79.387505},
+    "Queen Street / Spadina Avenue": {latitude: 43.648769, longitude: -79.396404},
+    "Queen Street / Bathrust Street": {latitude: 43.647191, longitude: -79.404008}
+  },
+  "Dundas Street" : {
+    "Dundas Street / Sherbourne Street": {latitude: 43.658290, longitude: -79.370996},
+    "Dundas Street / Jarvis Street": {latitude: 43.657038, longitude: -79.374544},
+    "Dundas Street / Yonge Street": {latitude: 43.656315, longitude: -79.380911},
+    "Dundas Street / Bay Street": {latitude: 43.655747, longitude: -79.383727},
+    "Dundas Street / University Avenue": {latitude: 43.654809, longitude: -79.388272},
+    "Dundas Street / Simcoe Street": {latitude: 43.654675, longitude: -79.389220},
+    "Dundas Street / Spadina Avenue": {latitude: 43.652926, longitude: -79.398003},
+    "Dundas Street / Bathrust Street": {latitude: 43.652292, longitude: -79.406013}
+  },
+  "College / Carlton Street" : {
+    "Carlton Street / Sherbourne Street": {latitude: 43.663184, longitude: -79.373071},
+    "Carlton Street / Jarvis Street": {latitude: 43.662404, longitude: -79.376690},
+    "College Street / Yonge Street": {latitude: 43.661375, longitude: -79.383099},
+    "College Street / Bay Street": {latitude: 43.660819, longitude: -79.385858},
+    "College Street / University Avenue": {latitude: 43.659820, longitude: -79.390474},
+    "College Street / Spadina Avenue": {latitude: 43.657912, longitude: -79.400016},
+    "College Street / Bathrust Street": {latitude: 43.656449, longitude: -79.407718}
+  },
 };
 
 const SUBWAY_STATIONS = {
@@ -181,6 +260,23 @@ $(function() {
       .attr("value", value).text(key));
     });
 
+
+  var $majorIntersections = $("#majorIntersections");
+  $.each(MAJOR_INTERSECTIONS, function(key,value) {
+    var $optionGroup = $("<optgroup></optgroup>").attr("label", key)
+    $majorIntersections.append($optionGroup);
+    $.each(value, function(intersection, coordinates) {
+      $optionGroup.append($("<option></option>")
+        .attr("data-latitude", coordinates.latitude).attr("data-longitude", coordinates.longitude).text(intersection));
+    });
+  });
+
+
+  var $subwayStations = $("#subwayStations");
+  $.each(SUBWAY_STATIONS, function(key,value) {
+    $subwayStations.append($("<option></option>")
+      .attr("data-latitude", value.latitude).attr("data-longitude", value.longitude).text(key));
+    });
 
   var $landmarks = $("#landmarks");
   $.each(LANDMARKS, function(key,value) {
