@@ -204,7 +204,7 @@ class CustomersController < ApplicationController
 
 
     hotDogStandsWithFavourablePositions = []
-    if params["distanceUnit"] == "KM" and params["distanceRange"].to_f != 0
+    if params["distanceUnit"] == "KM" and params["distanceRange"] != "0"
       allHotDogStands.each do |currentHotDogStand|
         #puts "Stand Latitude: " + currentHotDogStand.latitude.to_s
         #puts "Stand Longitude: " + currentHotDogStand.longitude.to_s
@@ -214,6 +214,24 @@ class CustomersController < ApplicationController
           hotDogStandsWithFavourablePositions.push(currentHotDogStand)
         end
 
+      end
+
+    elsif params["distanceUnit"] == "MI" and params["distanceRange"] != "0"
+
+      allHotDogStands.each do |currentHotDogStand|
+        #puts "Stand Latitude: " + currentHotDogStand.latitude.to_s
+        #puts "Stand Longitude: " + currentHotDogStand.longitude.to_s
+
+        if distanceBetweenTwoPointsLatAndLongInMI(params["latitude"].to_f, params["longitude"].to_f, \
+          currentHotDogStand.latitude, currentHotDogStand.longitude) < params["distanceRange"].to_f
+          hotDogStandsWithFavourablePositions.push(currentHotDogStand)
+        end
+
+      end
+
+    else
+      allHotDogStands.each do |currentHotDogStand|
+        hotDogStandsWithFavourablePositions.push(currentHotDogStand)
       end
       #puts "\n\n\n"
       #puts hotDogStandsWithFavourablePositions

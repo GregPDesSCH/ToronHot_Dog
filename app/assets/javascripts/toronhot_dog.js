@@ -181,7 +181,61 @@ function initMap(searchResultsData) {
     }));
 
 
-    var contentString = '<div id="content">'+
+    var contentStringPart1 = '<div id="content" style="height: 260px; width: 350px;">'+
+           '<h1 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
+           '</h1>' +
+           '<div id="bodyContent">' +
+           '<div><b>' +
+           'Address: ' + currentHotDogStand.actualAddress +
+           '</b></div><div><b>' +
+           'Customer Rating: ' + parseFloat(currentHotDogStand.customerRating).toFixed(2) +
+           '</b></div>';
+
+    console.log(contentStringPart1);
+
+    var contentStringPart2 = '<h3>Available Foods: </h3>' +
+      '<table>' +
+      '<tr><th>Side / Dish</th><th>Price</th></tr>';;
+    for (var foodIndex = 0; foodIndex < searchResultsData.availableFoodPrices[index].length; foodIndex++) {
+      var currentFoodPriceElement = searchResultsData.availableFoodPrices[index][foodIndex];
+      contentStringPart2 += '<tr><td>' + searchResultsData.allFood[currentFoodPriceElement.food_id - 1].foodName + '</td><td>$' +
+        parseFloat(currentFoodPriceElement.price).toFixed(2) + '</td></tr>';
+    }
+    contentStringPart2 += '</table>';
+
+    console.log(contentStringPart2);
+
+
+    var contentStringPart3 = '<h3>Available Drinks: </h3>' +
+    '<table>' +
+    '<tr><th>Drink</th><th>Price</th></tr>';
+    for (var drinkIndex = 0; drinkIndex < searchResultsData.availableDrinkPrices[index].length; drinkIndex++) {
+      var currentDrinkPriceElement = searchResultsData.availableDrinkPrices[index][drinkIndex];
+      contentStringPart3 += '<tr><td>' + searchResultsData.allDrinks[currentDrinkPriceElement.drink_id - 1].drinkName + '</td><td>$' +
+        parseFloat(currentDrinkPriceElement.price).toFixed(2) + '</td></tr>';
+    }
+    contentStringPart3 += '</table>'
+
+    console.log(contentStringPart3);
+
+
+    var contentStringPart4 = '<h3>Available Condiments: </h3>' +
+    '<p>';
+    for (var condimentIndex = 0; condimentIndex < searchResultsData.availableCondiments[index].length; condimentIndex++) {
+      var currentCondimentElement = searchResultsData.availableCondiments[index][condimentIndex];
+      contentStringPart4 += searchResultsData.allCondiments[currentCondimentElement.condiment_id - 1].nameOfCondiment;
+
+      if (condimentIndex < searchResultsData.availableCondiments[index].length - 1)
+        contentStringPart4 += ', ';
+    }
+    contentStringPart4 += '</p>'
+
+    console.log(contentStringPart4);
+
+    var infoWindowContent = contentStringPart1 + contentStringPart2 + contentStringPart3 + contentStringPart4 +
+      '</div></div>'
+
+    /*var contentString = '<div id="content">'+
            '<div id="siteNotice">'+
            '</div>'+
            '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
@@ -200,67 +254,30 @@ function initMap(searchResultsData) {
            '<p>' +
            '</p>' +
            '</div>'+
-           '</div>';
+           '</div>';*/
 
 
     hotDogStandsInformationWindows.push(new google.maps.InfoWindow({
-      content: "TEST"
+      content: infoWindowContent,
+      maxHeight: 300
     }));
 
     google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
-      //console.log(this.index);
-
-    //  console.log(index);
-      //console.log(hotDogStandsInformationWindows[index]);
-    //  console.log(hotDogStandsToDisplay[index]);
       hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
     });
   }
-
-  /*var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });*/
-
-  /*var contentString = '<div id="content">'+
-         '<div id="siteNotice">'+
-         '</div>'+
-         '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
-         '<div id="bodyContent">'+
-         '<h3>Available Foods: </h3>' +
-         '<table>' +
-         '<tr><th>Side / Dish</th><th>Price</th></tr>' +
-         '<tr><th>Small french fries</th><th>$2.25</th></tr>' +
-         '</table>' +
-         '<h3>Available Drinks: </h3>' +
-         '<table>' +
-         '<tr><th>Drink</th><th>Price</th></tr>' +
-         '<tr><td>Dasani Water (750mL)</td><td>$1.25</td></tr>' +
-         '</table>' +
-         '<h3>Available Condiments: </h3>' +
-         '<p>' +
-         '</p>' +
-         '</div>'+
-         '</div>';
-
-     var infowindow = new google.maps.InfoWindow({
-       content: contentString
-     });
-
-     marker2.addListener('click', function() {
-         infowindow.open(map, marker2);
-     });*/
 }
 
-$(function() {
 
+function loadMetricValues() {
   var $distanceDropdown = $("#distanceValues");
   $.each(METRIC_VALUES, function(key,value) {
     $distanceDropdown.append($("<option></option>")
       .attr("value", value).text(key));
     });
+}
 
-
+function loadMajorIntersections() {
   var $majorIntersections = $("#majorIntersections");
   $.each(MAJOR_INTERSECTIONS, function(key,value) {
     var $optionGroup = $("<optgroup></optgroup>").attr("label", key)
@@ -270,21 +287,25 @@ $(function() {
         .attr("data-latitude", coordinates.latitude).attr("data-longitude", coordinates.longitude).text(intersection));
     });
   });
+}
 
-
+function loadSubwayStations() {
   var $subwayStations = $("#subwayStations");
   $.each(SUBWAY_STATIONS, function(key,value) {
     $subwayStations.append($("<option></option>")
       .attr("data-latitude", value.latitude).attr("data-longitude", value.longitude).text(key));
     });
+}
 
+function loadLandmarks() {
   var $landmarks = $("#landmarks");
   $.each(LANDMARKS, function(key,value) {
     $landmarks.append($("<option></option>")
       .attr("data-latitude", value.latitude).attr("data-longitude", value.longitude).text(key));
     });
+}
 
-
+function loadRadioButtonListenersForPriceRange() {
   $("#priceRangeSpecified_priceRangeYes").click(function() {
     $("#minimumPrice").prop('disabled', false);
     $("#maximumPrice").prop('disabled', false);
@@ -295,7 +316,26 @@ $(function() {
     $("#maximumPrice").prop('disabled', true);
   });
 
+}
+
+function loadRadioButtonListenersForLocationSelection () {
   $("#locationReferenceSelection").change(function() {
+
+    if ($("#locationSelection_majorIntersection").is(':checked'))
+      $("#majorIntersections").prop('disabled', false);
+    else
+      $("#majorIntersections").prop('disabled', true);
+
+    if ($("#locationSelection_subwayStation").is(':checked'))
+      $("#subwayStations").prop('disabled', false);
+    else
+      $("#subwayStations").prop('disabled', true);
+
+    if ($("#locationSelection_landmarks").is(':checked'))
+      $("#landmarks").prop('disabled', false);
+    else
+      $("#landmarks").prop('disabled', true);
+
     if ($("#locationSelection_latitudeAndLongitude").is(':checked')) {
       $("#latitude").prop('disabled', false);
       $("#longitude").prop('disabled', false);
@@ -304,8 +344,9 @@ $(function() {
       $("#longitude").prop('disabled', true);
     }
   });
+}
 
-
+function loadChangeListenerForDistanceUnit() {
   $("#distanceUnitSelection").change(function() {
     $distanceDropdown.empty();
 
@@ -320,28 +361,33 @@ $(function() {
           .attr("value", value).text(key));
         });
   });
+}
 
 
 
-  $("body").on('click', '#goBackSearchEnginePageLink', function (){
-    $.get("customers/main", function( renderedHtml ) {
-      $("#mainDiv").html(renderedHtml);
-    });
-  });
-
-
+function loadSubmitButtonListener() {
   $("#findHotDogStands").click(function() {
 
     // Compile the data together
     var searchCriteria = new Object();
 
     // Position Reference Type
-    if ($("#locationSelection_majorIntersection").is(':checked'))
+    if ($("#locationSelection_majorIntersection").is(':checked')) {
       searchCriteria.positionReferenceType = "MI";
-    else if ($("#locationSelection_subwaySection").is(':checked'))
+      searchCriteria.latitude = $("#majorIntersections option:selected").attr("data-latitude");
+      searchCriteria.longitude = $("#majorIntersections option:selected").attr("data-longitude");
+      //searchCriteria.latitude = $("#majorIntersections");
+    }
+    else if ($("#locationSelection_subwaySection").is(':checked')) {
       searchCriteria.positionReferenceType = "SS";
-    else if ($("#locationSelection_landmarks").is(':checked'))
+      searchCriteria.latitude = $("#subwayStations option:selected").attr("data-latitude");
+      searchCriteria.longitude = $("#subwayStations option:selected").attr("data-longitude");
+    }
+    else if ($("#locationSelection_landmarks").is(':checked')) {
       searchCriteria.positionReferenceType = "LM";
+      searchCriteria.latitude = $("#landmarks option:selected").attr("data-latitude");
+      searchCriteria.longitude = $("#landmarks option:selected").attr("data-longitude");
+    }
     else {
       searchCriteria.positionReferenceType = "LL";
       searchCriteria.latitude = $("#latitude").val();
@@ -436,10 +482,31 @@ $(function() {
           $.get("customers/noSearchResults", function( renderedHtml ) {
             $("#mainDiv").html(renderedHtml);
           });
-
-
-
       }
     });
-  })
+  });
+}
+
+function initializeListenersAndValues() {
+  loadMetricValues();
+  loadMajorIntersections();
+  loadSubwayStations();
+  loadLandmarks();
+  loadRadioButtonListenersForPriceRange();
+  loadRadioButtonListenersForLocationSelection ();
+  loadChangeListenerForDistanceUnit();
+  loadSubmitButtonListener();
+}
+
+$(function() {
+
+  initializeListenersAndValues();
+
+  $("body").on('click', '#goBackSearchEnginePageLink', function (){
+    $.get("customers/main", function( renderedHtml ) {
+      $("#mainDiv").html(renderedHtml);
+      initializeListenersAndValues();
+    });
+  });
+
 })
