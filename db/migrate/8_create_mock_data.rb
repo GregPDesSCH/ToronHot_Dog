@@ -147,6 +147,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
     # Condiments
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[0].id, condiment_id: available_condiments[0].id
+    AvailableCondiment.create! hot_dog_stands_id: hotDogStands[0].id, condiment_id: available_condiments[2].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[0].id, condiment_id: available_condiments[3].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[0].id, condiment_id: available_condiments[4].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[0].id, condiment_id: available_condiments[6].id
@@ -253,7 +254,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[2].id, price: 3.25
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[3].id, price: 4.00
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[4].id, price: 9.25
-    FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[6].id, price: 11.45
+    FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[6].id, price: 3.25
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[9].id, price: 13.00
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[12].id, price: 13.00
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[15].id, price: 16.00
@@ -300,7 +301,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[3].id, price: 3.50
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[4].id, price: 4.50
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[5].id, price: 3.80
-    FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[6].id, price: 3.80
+    FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[6].id, price: 3.50
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[7].id, price: 3.80
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[8].id, price: 3.80
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[9].id, price: 3.80

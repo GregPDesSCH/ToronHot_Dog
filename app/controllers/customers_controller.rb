@@ -139,7 +139,7 @@ class CustomersController < ApplicationController
 
         if params["isAPriceRangeSpecified"] === "true"
           foodPriceQuery = foodPriceQuery.where("exists (select * from food_prices where food_id = ? and " + \
-            "food_prices.hot_dog_stands_id = hot_dog_stands.id and food_prices.price > ? and food_prices.price < ?)", \
+            "food_prices.hot_dog_stands_id = hot_dog_stands.id and food_prices.price >= ? and food_prices.price <= ?)", \
              foodIndex, params["minimumItemPrice"].to_f, params["maximumItemPrice"].to_f)
         else
           foodPriceQuery = foodPriceQuery.where("exists (select * from food_prices where food_id = ? and " + \
@@ -169,7 +169,7 @@ class CustomersController < ApplicationController
         #query = query.joins(:food_price).where (id: FoodPrice.where(food_id: foodIndex).exists)
         if params["isAPriceRangeSpecified"] === "true"
           drinkPriceQuery = drinkPriceQuery.where("exists (select * from drink_prices where drink_id = ? and " +
-            "drink_prices.hot_dog_stands_id = hot_dog_stands.id and drink_prices.price > ? and drink_prices.price < ?)", \
+            "drink_prices.hot_dog_stands_id = hot_dog_stands.id and drink_prices.price >= ? and drink_prices.price <= ?)", \
             drinkIndex, params["minimumItemPrice"].to_f, params["maximumItemPrice"].to_f)
         else
           drinkPriceQuery = drinkPriceQuery.where("exists (select * from drink_prices where drink_id = ? and " +
