@@ -150,6 +150,9 @@ const LANDMARKS = {
   "Roundhouse Park / Steam Whistle Brewery / The Rec Room" : {latitude: 43.6410088, longitude: -79.3861289},
 };
 
+
+
+
 function initMap(searchResultsData) {
 
   if (searchResultsData == null)
@@ -177,7 +180,8 @@ function initMap(searchResultsData) {
     hotDogStandsToDisplay.push(new google.maps.Marker({
       position: standLocation,
       map: map,
-      index: index
+      index: index,
+      animation: null
     }));
 
 
@@ -221,40 +225,59 @@ function initMap(searchResultsData) {
 
     var contentStringPart4 = '<h3>Available Condiments: </h3>' +
     '<p>';
+    var currentCondimentString = '';
     for (var condimentIndex = 0; condimentIndex < searchResultsData.availableCondiments[index].length; condimentIndex++) {
       var currentCondimentElement = searchResultsData.availableCondiments[index][condimentIndex];
-      contentStringPart4 += searchResultsData.allCondiments[currentCondimentElement.condiment_id - 1].nameOfCondiment;
+
+      currentCondimentString = searchResultsData.allCondiments[currentCondimentElement.condiment_id - 1].nameOfCondiment;
+
+      if (condimentIndex > 0)
+        currentCondimentString = currentCondimentString.toLowerCase();
+
+      contentStringPart4 += currentCondimentString;
 
       if (condimentIndex < searchResultsData.availableCondiments[index].length - 1)
         contentStringPart4 += ', ';
     }
-    contentStringPart4 += '</p>'
+    contentStringPart4 += '</p>';
 
     console.log(contentStringPart4);
 
-    var infoWindowContent = contentStringPart1 + contentStringPart2 + contentStringPart3 + contentStringPart4 +
-      '</div></div>'
+    console.log("Additional options available? " + (Object.keys(currentHotDogStand.additionalOptions).length != 0));
 
-    /*var contentString = '<div id="content">'+
-           '<div id="siteNotice">'+
-           '</div>'+
-           '<h1 id="firstHeading" class="firstHeading">Meep meep</h1>'+
-           '<div id="bodyContent">'+
-           '<h3>Available Foods: </h3>' +
-           '<table>' +
-           '<tr><th>Side / Dish</th><th>Price</th></tr>' +
-           '<tr><th>Small french fries</th><th>$2.25</th></tr>' +
-           '</table>' +
-           '<h3>Available Drinks: </h3>' +
-           '<table>' +
-           '<tr><th>Drink</th><th>Price</th></tr>' +
-           '<tr><td>Dasani Water (750mL)</td><td>$1.25</td></tr>' +
-           '</table>' +
-           '<h3>Available Condiments: </h3>' +
-           '<p>' +
-           '</p>' +
-           '</div>'+
-           '</div>';*/
+
+
+
+    var contentStringPart5 = '';
+
+    if (Object.keys(currentHotDogStand.additionalOptions).length != 0) {
+      contentStringPart5 = '<h3>Additional Options: </h3>';
+
+      var additionalOption = '';
+
+      for (currentKey in currentHotDogStand.additionalOptions) {
+        contentStringPart5 += '<h4>' + currentKey + ':</h4><p>';
+        for (var elementIndex = 0; elementIndex < currentHotDogStand.additionalOptions[currentKey].length; elementIndex++) {
+
+          additionalOption = currentHotDogStand.additionalOptions[currentKey][elementIndex];
+
+          if (elementIndex > 0)
+            additionalOption = additionalOption.toLowerCase();
+
+          contentStringPart5 += additionalOption;
+
+          if (elementIndex < currentHotDogStand.additionalOptions[currentKey].length - 1)
+            contentStringPart5 += ', ';
+        }
+
+        contentStringPart5 += '</p>';
+      }
+    }
+
+
+    var infoWindowContent = contentStringPart1 + contentStringPart2 + contentStringPart3 +
+      contentStringPart4 + contentStringPart5
+      '</div></div>'
 
 
     hotDogStandsInformationWindows.push(new google.maps.InfoWindow({
@@ -264,6 +287,14 @@ function initMap(searchResultsData) {
 
     google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
       hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
+    });
+
+    google.maps.event.addListener(hotDogStandsToDisplay[index], 'mouseover', function() {
+      hotDogStandsToDisplay[this.index].setAnimation(google.maps.Animation.BOUNCE);
+    });
+
+    google.maps.event.addListener(hotDogStandsToDisplay[index], 'mouseout', function() {
+      hotDogStandsToDisplay[this.index].setAnimation(null);
     });
   }
 }
@@ -368,6 +399,9 @@ function loadChangeListenerForDistanceUnit() {
 function loadSubmitButtonListener() {
   $("#findHotDogStands").click(function() {
 
+    $(this).prop('disabled', true);
+    $(this).html("Searching; please wait...");
+
     // Compile the data together
     var searchCriteria = new Object();
 
@@ -462,7 +496,6 @@ function loadSubmitButtonListener() {
 
     $.ajax({
       method: "POST",
-      async: false,
       url: "customers/search",
       headers: {
         'X-CSRF-Token': $("#authenticity_token").val()

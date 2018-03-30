@@ -17,7 +17,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
     hotDogStands[0] = HotDogStand.create! nameOfStand: "Patrick's Big Old Sausages", latitude: 43.656323, longitude: -79.40776, \
       customerRating: 3.69, additionalOptions: { \
-        "bun" => ["White", "Pretzel", "Garlic", "Multigrain", "Italian"] \
+        "Buns" => ["White", "Pretzel", "Garlic", "Multigrain", "Italian"] \
       }, actualAddress: "479 Bathrust Street"
 
     hotDogStands[1] = HotDogStand.create! nameOfStand: "Davio Dave Hot Dogs", latitude: 43.646662, longitude: -79.395636, \
@@ -30,7 +30,10 @@ class CreateMockData < ActiveRecord::Migration[5.1]
       customerRating: 4.21, additionalOptions: {}, actualAddress: "22 York Street"
 
     hotDogStands[4] = HotDogStand.create! nameOfStand: "The Torontbite", latitude: 43.655566, longitude: -79.388870, \
-      customerRating: 5.00, additionalOptions: {}, actualAddress: "506 University Avenue" # Hot dog stand for SE 464 Scenario 1
+      customerRating: 5.00, additionalOptions: { \
+          "Seed Toppings" => ["Flax", "Hemp", "Sunflower", "Sesame", "Chia"], \
+          "Seasonings" => ["Paprika", "Curry Powder", "Garlic Powder", "Ground Rosemary", "Ground Cumin", "Crushed Cayenne", "Lemon and Pepper"] \
+        }, actualAddress: "506 University Avenue" # Hot dog stand for SE 464 Scenario 1
 
     hotDogStands[5] = HotDogStand.create! nameOfStand: "Smoky Frankie Franks", latitude: 43.651406, longitude: -79.379936, \
       customerRating: 0.00, additionalOptions: {}, actualAddress: "27 Richmond Street West"
