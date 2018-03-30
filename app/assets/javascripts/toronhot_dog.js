@@ -183,7 +183,6 @@ function initMap(searchResultsData) {
     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
   });
 
-
   if (searchResultsData.distanceRange != 0) {
     var referenceCircle = new google.maps.Circle({
       strokeColor: '#00DD00',
