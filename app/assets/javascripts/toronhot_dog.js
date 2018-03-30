@@ -120,16 +120,23 @@ const MAJOR_INTERSECTIONS = {
 };
 
 const SUBWAY_STATIONS = {
-  "Union": {latitude: 43.6425723, longitude: -79.3870772},
-  "King": {latitude: 43.6425723, longitude: -79.3870772},
-  "Queen": {latitude: 43.6425723, longitude: -79.3870772},
-  "Dundas": {latitude: 43.6425723, longitude: -79.3870772},
-  "College": {latitude: 43.6425723, longitude: -79.3870772},
-  "Wellesley": {latitude: 43.6425723, longitude: -79.3870772},
-  "Bloor-Yonge": {latitude: 43.6425723, longitude: -79.3870772},
-  "St Patrick": {latitude: 43.6425723, longitude: -79.3870772},
-  "Queen's Park": {latitude: 43.6425723, longitude: -79.3870772},
-  "Museum": {latitude: 43.6425723, longitude: -79.3870772},
+  "Union": {latitude: 43.6452239, longitude: -79.380861},
+
+  "King": {latitude: 43.6490598, longitude: -79.3781075},
+  "Queen": {latitude: 43.652737, longitude: -79.379616},
+  "Dundas": {latitude: 43.6562811, longitude: -79.380459},
+  "College": {latitude: 43.6613247, longitude: -79.3830746},
+  "Wellesley": {latitude: 43.665653, longitude: -79.383804},
+  "Bloor-Yonge": {latitude: 43.6709058, longitude: -79.3856372},
+
+  "St Andrew": {latitude: 43.6475248, longitude: -79.3844866},
+  "Osgoode": {latitude: 43.6506146, longitude: -79.3868315},
+  "St Patrick": {latitude: 43.6548307, longitude: -79.3883485},
+  "Queen's Park": {latitude: 43.6598804, longitude: -79.3904766},
+  "Museum": {latitude: 43.667193, longitude: -79.3935069},
+  "St George": {latitude: 43.6682621, longitude: -79.3998583},
+  "Spadina TTC": {latitude: 43.6673575, longitude: -79.4038099},
+  "Spadina": {latitude: 43.6703608, longitude: -79.4053173},
 };
 
 const LANDMARKS = {
@@ -166,6 +173,29 @@ function initMap(searchResultsData) {
     zoom: 12,
     center: mapCenter
   });
+
+  var referenceCenter = {lat: searchResultsData.referenceLatitude,
+    lng: searchResultsData.referenceLongitude};
+
+  var referenceMarker = new google.maps.Marker({
+    position: referenceCenter,
+    map: map,
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+  });
+
+
+  if (searchResultsData.distanceRange != 0) {
+    var referenceCircle = new google.maps.Circle({
+      strokeColor: '#00DD00',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#00AA00',
+      fillOpacity: 0.3,
+      map: map,
+      center: referenceCenter,
+      radius: searchResultsData.distanceRange
+    });
+  }
 
   var hotDogStandsToDisplay = [];
   var hotDogStandsInformationWindows = [];
@@ -301,9 +331,8 @@ function initMap(searchResultsData) {
 
 
 function loadMetricValues() {
-  var $distanceDropdown = $("#distanceValues");
   $.each(METRIC_VALUES, function(key,value) {
-    $distanceDropdown.append($("<option></option>")
+    $("#distanceValues").append($("<option></option>")
       .attr("value", value).text(key));
     });
 }
@@ -379,16 +408,16 @@ function loadRadioButtonListenersForLocationSelection () {
 
 function loadChangeListenerForDistanceUnit() {
   $("#distanceUnitSelection").change(function() {
-    $distanceDropdown.empty();
+    $("#distanceValues").empty();
 
     if ($("#distanceUnit_metric").is(':checked'))
       $.each(METRIC_VALUES, function(key,value) {
-        $distanceDropdown.append($("<option></option>")
+        $("#distanceValues").append($("<option></option>")
           .attr("value", value).text(key));
         });
     else
       $.each(IMPERIAL_VALUES, function(key,value) {
-        $distanceDropdown.append($("<option></option>")
+        $("#distanceValues").append($("<option></option>")
           .attr("value", value).text(key));
         });
   });
@@ -412,7 +441,7 @@ function loadSubmitButtonListener() {
       searchCriteria.longitude = $("#majorIntersections option:selected").attr("data-longitude");
       //searchCriteria.latitude = $("#majorIntersections");
     }
-    else if ($("#locationSelection_subwaySection").is(':checked')) {
+    else if ($("#locationSelection_subwayStation").is(':checked')) {
       searchCriteria.positionReferenceType = "SS";
       searchCriteria.latitude = $("#subwayStations option:selected").attr("data-latitude");
       searchCriteria.longitude = $("#subwayStations option:selected").attr("data-longitude");
