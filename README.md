@@ -6,6 +6,11 @@
 Start Date: January 27, 2018
 End Date:
 
+
+
+
+
+
 ## Credits
 
 
@@ -36,6 +41,10 @@ Patrick Lam
 Pearl Sullivan
 
 
+*President and Vice-Chancellor*
+
+Feridun Hamdullahpur
+
 
 
 **SPECIAL THANKS**
@@ -44,12 +53,19 @@ Pearl Sullivan
 
 Caitlin McDonough
 
+
+
 *Websites and QA*
 
 [StackOverflow.com](https://stackoverflow.com/)
+
 [Ruby on Rails Guides](http://guides.rubyonrails.org)
 
 
 
 
+*Follow me on [LinkedIn](https://www.linkedin.com/in/gregorydesrosiers/)*
+
+[https://gregpdessch.github.io](https://gregpdessch.github.io)
+Approved for academic use by the University of Waterloo.
 Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
