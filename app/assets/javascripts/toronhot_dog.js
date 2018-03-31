@@ -328,7 +328,7 @@ function initMap(searchResultsData) {
     hotDogStandsInformationWindows.push(newInfoWindow);
 
     google.maps.event.addListener(newInfoWindow, 'domready', function(){
-      loadDirectionListener(directionsService, directionsDisplay, referenceCenter, standLocation);
+      loadDirectionListener(directionsService, directionsDisplay, referenceCenter);
     });
 
     google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
