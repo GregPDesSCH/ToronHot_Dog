@@ -24,13 +24,6 @@ class CustomersController < ApplicationController
 
   def test
     @foods = Food.all
-
-    #@foods.each do |currentItem|
-    #  puts currentItem
-    #  puts currentItem.id
-    #  puts currentItem.foodName
-    #end
-
     @drinks = Drink.all
     @condiments = Condiment.all
     @hotDogStands = HotDogStand.all
@@ -193,20 +186,20 @@ class CustomersController < ApplicationController
     filterHotDogStandsByDrinkPreferences(params)
     filterHotDogStandsByCondimentPreferences(params)
 
-    puts "\n\n\n"
-    puts "Full search query::"
-    puts @searchQuery
+    #puts "\n\n\n"
+    #puts "Full search query::"
+    #puts @searchQuery
 
 
-    @searchQuery.each do |resultingStand|
-      puts resultingStand.nameOfStand
-    end
+    #@searchQuery.each do |resultingStand|
+    #  puts resultingStand.nameOfStand
+    #end
 
-    puts "\n\n\n"
+    #puts "\n\n\n"
 
     hotDogStandsWithFavourablePositions = filterHotDogStandsByDistanceFromReferenceLocation(params)
-    puts hotDogStandsWithFavourablePositions
-    puts hotDogStandsWithFavourablePositions.size
+    #puts hotDogStandsWithFavourablePositions
+    #puts hotDogStandsWithFavourablePositions.size
 
     allAvailableItemsForTheStands = gatherAllItemsFromAvailableStands()
 

@@ -160,13 +160,14 @@ const LANDMARKS = {
 
 
 
+
 function initMap(searchResultsData) {
 
   if (searchResultsData == null)
     return
 
-  console.log("initMap function has been called.");
-  console.log(searchResultsData);
+  //console.log("initMap function has been called.");
+  //console.log(searchResultsData);
   var uluru = {lat: 43.6503521, lng: -79.3837953};
   var mapCenter = {lat: 43.642566, lng: -79.387056};
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -196,14 +197,20 @@ function initMap(searchResultsData) {
     });
   }
 
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
   var hotDogStandsToDisplay = [];
   var hotDogStandsInformationWindows = [];
 
-  console.log(searchResultsData.resultingHotDogStands);
+  //console.log(searchResultsData.resultingHotDogStands);
 
   for (var index = 0; index < searchResultsData.resultingHotDogStands.length; index++) {
     var currentHotDogStand = searchResultsData.resultingHotDogStands[index];
-    console.log(currentHotDogStand);
+    //console.log(currentHotDogStand);
     var standLocation = {lat: parseFloat(currentHotDogStand.latitude), lng: parseFloat(currentHotDogStand.longitude)}
 
     hotDogStandsToDisplay.push(new google.maps.Marker({
@@ -218,13 +225,17 @@ function initMap(searchResultsData) {
            '<h1 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
            '</h1>' +
            '<div id="bodyContent">' +
+           '<span class="directionsLink" data-hot-dog-stand-index="' + currentHotDogStand.id + '" data-latitude="'
+           + currentHotDogStand.latitude +'" data-longitude="' + currentHotDogStand.longitude + '">' +
+           'Get directions' +
+           '</span>' +
            '<div><b>' +
            'Address: ' + currentHotDogStand.actualAddress +
            '</b></div><div><b>' +
            'Customer Rating: ' + parseFloat(currentHotDogStand.customerRating).toFixed(2) +
            '</b></div>';
 
-    console.log(contentStringPart1);
+    //console.log(contentStringPart1);
 
     var contentStringPart2 = '<h3>Available Foods: </h3>' +
       '<table>' +
@@ -236,7 +247,7 @@ function initMap(searchResultsData) {
     }
     contentStringPart2 += '</table>';
 
-    console.log(contentStringPart2);
+    //console.log(contentStringPart2);
 
 
     var contentStringPart3 = '<h3>Available Drinks: </h3>' +
@@ -249,7 +260,7 @@ function initMap(searchResultsData) {
     }
     contentStringPart3 += '</table>'
 
-    console.log(contentStringPart3);
+    //console.log(contentStringPart3);
 
 
     var contentStringPart4 = '<h3>Available Condiments: </h3>' +
@@ -270,9 +281,9 @@ function initMap(searchResultsData) {
     }
     contentStringPart4 += '</p>';
 
-    console.log(contentStringPart4);
+    //console.log(contentStringPart4);
 
-    console.log("Additional options available? " + (Object.keys(currentHotDogStand.additionalOptions).length != 0));
+    //console.log("Additional options available? " + (Object.keys(currentHotDogStand.additionalOptions).length != 0));
 
 
 
@@ -309,10 +320,16 @@ function initMap(searchResultsData) {
       '</div></div>'
 
 
-    hotDogStandsInformationWindows.push(new google.maps.InfoWindow({
+    var newInfoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
       maxHeight: 300
-    }));
+    });
+
+    hotDogStandsInformationWindows.push(newInfoWindow);
+
+    google.maps.event.addListener(newInfoWindow, 'domready', function(){
+      loadDirectionListener(directionsService, directionsDisplay, referenceCenter, standLocation);
+    });
 
     google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
       hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
@@ -327,6 +344,8 @@ function initMap(searchResultsData) {
     });
   }
 }
+
+
 
 
 function loadMetricValues() {
@@ -431,7 +450,7 @@ function loadSubmitButtonListener() {
     $(this).html("Searching; please wait...");
 
     // Compile the data together
-    var searchCriteria = new Object();
+    var searchCriteria = {};
 
     // Position Reference Type
     if ($("#locationSelection_majorIntersection").is(':checked')) {
@@ -548,6 +567,33 @@ function loadSubmitButtonListener() {
   });
 }
 
+function loadDirectionListener(directionsService, directionsDisplay, startPoint) {
+  $(".directionsLink").on('click', function(){
+    var hotDogStandIndex = $(this).attr("data-hot-dog-stand-index");
+
+    //console.log("Directions requested!");
+    //console.log(hotDogStandIndex);
+    //console.log(startPoint);
+    //console.log(destinationPoint);
+
+    //console.log($(this).attr("data-latitude"));
+    //console.log($(this).attr("data-longitude"));
+
+    var directionsRequest = {
+      origin: new google.maps.LatLng(startPoint.lat, startPoint.lng),
+      destination: new google.maps.LatLng($(this).attr("data-latitude"), $(this).attr("data-longitude")),
+      travelMode: google.maps.DirectionsTravelMode.WALKING
+    };
+
+    directionsService.route(directionsRequest, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    });
+
+  });
+}
+
 function initializeListenersAndValues() {
   loadMetricValues();
   loadMajorIntersections();
@@ -557,6 +603,7 @@ function initializeListenersAndValues() {
   loadRadioButtonListenersForLocationSelection ();
   loadChangeListenerForDistanceUnit();
   loadSubmitButtonListener();
+
 }
 
 $(function() {
