@@ -555,11 +555,16 @@ function loadSubmitButtonListener() {
 
         if (data.numberOfResults > 0)
           $.get("customers/searchResults", function( renderedHtml ) {
+            console.log(renderedHtml);
+
+            $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
             initMap(data);
           });
         else
           $.get("customers/noSearchResults", function( renderedHtml ) {
+            console.log(renderedHtml);
+            $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
           });
       }
@@ -570,14 +575,6 @@ function loadSubmitButtonListener() {
 function loadDirectionListener(directionsService, directionsDisplay, startPoint) {
   $(".directionsLink").on('click', function(){
     var hotDogStandIndex = $(this).attr("data-hot-dog-stand-index");
-
-    //console.log("Directions requested!");
-    //console.log(hotDogStandIndex);
-    //console.log(startPoint);
-    //console.log(destinationPoint);
-
-    //console.log($(this).attr("data-latitude"));
-    //console.log($(this).attr("data-longitude"));
 
     var directionsRequest = {
       origin: new google.maps.LatLng(startPoint.lat, startPoint.lng),
@@ -612,8 +609,12 @@ $(function() {
 
   $("body").on('click', '#goBackSearchEnginePageLink', function (){
     $.get("customers/main", function( renderedHtml ) {
-      $("#mainDiv").html(renderedHtml);
+
+      var $replacementElement = $("<output>").append($.parseHTML(renderedHtml)).find("div#mainDiv")[0];
+
+      $("#mainDiv").html($replacementElement.innerHTML);
       initializeListenersAndValues();
+
     });
   });
 
