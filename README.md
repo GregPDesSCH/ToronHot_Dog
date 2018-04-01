@@ -239,9 +239,8 @@ Derek Rayside
 
 *Executive Producers*
 
-Patrick Lam
-
-Pearl Sullivan
+Patrick Lam  
+Pearl Sullivan  
 
 
 *President and Vice-Chancellor*
@@ -270,14 +269,14 @@ Allie Speers, Jenn Vanden Elzen
 
 *Websites and QA*
 
-[StackOverflow.com](https://stackoverflow.com/)
-[Ruby on Rails Guides](http://guides.rubyonrails.org)
+[StackOverflow.com](https://stackoverflow.com/)  
+[Ruby on Rails Guides](http://guides.rubyonrails.org)  
 
 
 *Functionality Providers*
 
-Yukihiro Matsumoto, inventor of Ruby
-David Heinemeir Hansson, inventor of Ruby on Rails
+Yukihiro Matsumoto, inventor of Ruby  
+David Heinemeir Hansson, inventor of Ruby on Rails  
 World Wide Web Consortium  
 Google, Inc.  
 The Rails Community  
@@ -287,12 +286,12 @@ The jQuery Foundation
 
 *Tools*
 
-GitHub ATOM 1.25.0 x64
-jQuery 3.3.1
-Ruby 2.3.3p222 (2016-11-21 revision 56859)
-Ruby on Rails 5.1.5
-PostgreSQL 10.2, compiled by Visual C++ build 1800, 64-bit
-Google Chrome v65.0.3325.181
+GitHub ATOM 1.25.0 x64  
+jQuery 3.3.1  
+Ruby 2.3.3p222 (2016-11-21 revision 56859)  
+Ruby on Rails 5.1.5  
+PostgreSQL 10.2, compiled by Visual C++ build 1800, 64-bit  
+Google Chrome v65.0.3325.181  
 
 
 *Follow me on [LinkedIn](https://www.linkedin.com/in/gregorydesrosiers/)*
