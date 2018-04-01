@@ -39,6 +39,7 @@ Additional Resources and Libraries include Google Maps API v3 and Google Maps Di
 ## Setup Instructions
 
 **Requirements**
+
 You'll need to install three components: PostgreSQL, Ruby, and Ruby on Rails. This website has been built using Ruby 2.3.3p222 (Revision 56859, November 21, 2016), and Ruby on Rails 5.1.5. You'll also need a Google account, as this website uses the Google Maps API and the Google Maps Directions API through a single API key. As Ruby on Rails depends on NodeJS for runtime, you'll need NodeJS as well.
 
 *Optional Requirement*: You'll need a Git shell to download this repository, but you can also download this repo as an archived ZIP folder using the green button at the top of the page.
@@ -49,7 +50,9 @@ You'll need to install three components: PostgreSQL, Ruby, and Ruby on Rails. Th
 **Installation Instructions**
 
 1. Use the following links to install Ruby.
+
 [https://www.ruby-lang.org/en/downloads/](https://www.ruby-lang.org/en/downloads/)
+
 [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/)
 
 
@@ -109,8 +112,10 @@ If you see the version number in the output, such as 10.2, you're all set; Postg
 
 **API Key**
 
-1. To retrieve the API key you'll need, use the following two links:
+1. To retrieve the API key you'll need, use the following link:
+
 [https://developers.google.com/maps/documentation/javascript/get-api-key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+
 *Do NOT share this API key with anyone.*
 
 2. Create a file called *application.yml* in the config folder.
@@ -266,8 +271,7 @@ Allie Speers, Jenn Vanden Elzen
 *Websites and QA*
 
 [StackOverflow.com](https://stackoverflow.com/)
-
-[Ruby on Rails Guides](http://guides.rubyonrails.org)
+[Ruby on Rails Guides](http://guides.rubyonrails.org) 
 
 
 *Functionality Providers*
