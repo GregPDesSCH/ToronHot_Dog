@@ -17,59 +17,64 @@
 <%# <%= form_tag("customers/searchResults", method: "post", id: "hotDogStandSearchEngine") do %>
   <div id="locationReferenceSelection">
     <h4>Where do you want to search a stand from?</h4>
-    <div>
+    <div class="form-check">
       <div>
-        <%= radio_button_tag(:locationSelection, 'majorIntersection', :checked) %>
-        <%= label_tag 'majorIntersection', 'Major Intersection' %>
+        <%= radio_button_tag(:locationSelection, 'majorIntersection', :checked, class: 'form-check-input') %>
+        <%= label_tag 'majorIntersection', 'Major Intersection', class: 'form-check-label'  %>
       </div>
-      <select id="majorIntersections">
+      <select class="form-control" id="majorIntersections">
 
       </select>
     </div>
-    <div>
+    <div class="form-check">
       <div>
-        <%= radio_button_tag(:locationSelection, 'subwayStation') %>
-        <%= label_tag 'subwayStation', 'Subway Station' %>
+        <%= radio_button_tag(:locationSelection, 'subwayStation', false, class: 'form-check-input') %>
+        <%= label_tag 'subwayStation', 'Subway Station', class: 'form-check-label'  %>
       </div>
-      <select id="subwayStations" disabled>
+
+      <select class="form-control" id="subwayStations" disabled>
 
       </select>
     </div>
-    <div>
+    <div class="form-check">
       <div>
-        <%= radio_button_tag(:locationSelection, 'landmarks') %>
-        <%= label_tag 'landmarks', 'Landmarks' %>
+        <%= radio_button_tag(:locationSelection, 'landmarks', false, class: 'form-check-input' ) %>
+        <%= label_tag 'landmarks', 'Landmarks', class: 'form-check-label'  %>
       </div>
-      <select id="landmarks" disabled>
+      <select class="form-control" id="landmarks" disabled>
 
       </select>
     </div>
-    <div>
+    <div class="form-check">
       <div>
-        <%= radio_button_tag(:locationSelection, 'latitudeAndLongitude') %>
-        <%= label_tag 'latitudeAndLongitude', 'Latitude and Longitude' %>
+        <%= radio_button_tag(:locationSelection, 'latitudeAndLongitude', false, class: 'form-check-input') %>
+        <%= label_tag 'latitudeAndLongitude', 'Latitude and Longitude', class: 'form-check-label'  %>
       </div>
       <div>
-        <div>
+        <div class="form-group">
           <h5>Latitude: </h5>
-          <input id="latitude" type="number" name="latitude" min="43.600000" max="43.750000" value="43.642566" step="0.000001" disabled>
+          <input id="latitude" class="form-control" type="number" name="latitude" min="43.600000" max="43.750000" value="43.642566" step="0.000001" disabled>
         </div>
-        <div>
+        <div class="form-group">
           <h5>Longitude: </h5>
-          <input id="longitude" type="number" name="longitude" min="-79.510000" max="-79.260000" value="-79.387056" step="0.000001" disabled>
+          <input id="longitude" class="form-control" type="number" name="longitude" min="-79.510000" max="-79.260000" value="-79.387056" step="0.000001" disabled>
         </div>
       </div>
     </div>
 
     <div>
       <h4>Distance Range:</h4>
-      <div id="distanceUnitSelection">
-        <%= radio_button_tag(:distanceUnit, 'metric', :checked) %>
-        <%= label_tag 'metric', 'Metric' %>
-        <%= radio_button_tag(:distanceUnit, 'imperial') %>
-        <%= label_tag 'imperial', 'US / UK Imperial' %>
+      <div id="distanceUnitSelection" class="form-check">
+        <div>
+          <%= radio_button_tag(:distanceUnit, 'metric', :checked, class: 'form-check-input') %>
+          <%= label_tag 'metric', 'Metric', class: 'form-check-label' %>
+        </div>
+        <div>
+          <%= radio_button_tag(:distanceUnit, 'imperial', false, class: 'form-check-input') %>
+          <%= label_tag 'imperial', 'US / UK Imperial', class: 'form-check-label' %>
+        </div>
       </div>
-      <select id="distanceValues">
+      <select id="distanceValues" class="form-control">
 
       </select>
     </div>
@@ -85,23 +90,24 @@
       <%= radio_button_tag(:priceRangeSpecified, 'priceRangeNo') %>
       <%= label_tag 'priceRangeNo', 'No' %>
     </div>
-    <div>
+    <div class="form-group">
       <h5>From: </h5>
-      $<input type="number" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
+      $<input type="number" class="form-control" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
     </div>
-    <div>
+    <div class="form-group">
       <h5>To: </h5>
-      $<input type="number" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+      $<input type="number" class="form-control" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
     </div>
   </div>
 
   <div>
     <h4>Which food do you prefer getting?</h4>
-    <div id="food">
+    <div id="food" class="form-check">
       <% @foods.each do |currentFood|  %>
         <div>
-          <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false, data: { "food_Index" => currentFood.id}   %>
-          <%= label_tag 'foodName' + currentFood.id.to_s, currentFood.foodName %>
+          <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false,
+            class: 'form-check-input', data: { "food_Index" => currentFood.id}  %>
+          <%= label_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, class: 'form-check-label' %>
         </div>
       <% end %>
     </div>
@@ -109,11 +115,12 @@
 
   <div>
     <h4>Which drink do you prefer getting?</h4>
-    <div id="drinks">
+    <div id="drinks" class="form-check">
       <% @drinks.each do |currentDrink|  %>
         <div>
-          <%= check_box_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, false, data: { "drink_Index" => currentDrink.id }  %>
-          <%= label_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName %>
+          <%= check_box_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, false,
+            class: 'form-check-input', data: { "drink_Index" => currentDrink.id }  %>
+          <%= label_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, class: 'form-check-label' %>
         </div>
       <% end %>
     </div>
@@ -121,17 +128,18 @@
 
   <div>
     <h4>Which condiment do you prefer having the food with?</h4>
-    <div id="condiments">
+    <div id="condiments" class="form-check">
       <% @condiments.each do |currentCondiment|  %>
         <div>
-          <%= check_box_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, false, data: { "condiment_Index" => currentCondiment.id } %>
-          <%= label_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment %>
+          <%= check_box_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, false,
+            class: 'form-check-input', data: { "condiment_Index" => currentCondiment.id } %>
+          <%= label_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, class: 'form-check-label' %>
         </div>
       <% end %>
     </div>
   </div>
 
-  <%= button_tag(type: 'submit', id: 'findHotDogStands') do %>
+  <%= button_tag(type: 'submit', id: 'findHotDogStands', class: 'btn btn-dark') do %>
     Find Hot Dog Stands
   <% end %>
 
