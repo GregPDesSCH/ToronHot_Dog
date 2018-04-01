@@ -271,18 +271,18 @@ Allie Speers, Jenn Vanden Elzen
 *Websites and QA*
 
 [StackOverflow.com](https://stackoverflow.com/)
-[Ruby on Rails Guides](http://guides.rubyonrails.org) 
+[Ruby on Rails Guides](http://guides.rubyonrails.org)
 
 
 *Functionality Providers*
 
 Yukihiro Matsumoto, inventor of Ruby
 David Heinemeir Hansson, inventor of Ruby on Rails
-World Wide Web Consortium
-Google, Inc.
-The Rails Community
-The Ruby on Rails Community
-The jQuery Foundation
+World Wide Web Consortium  
+Google, Inc.  
+The Rails Community  
+The Ruby on Rails Community  
+The jQuery Foundation  
 
 
 *Tools*
