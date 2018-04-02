@@ -1,7 +1,7 @@
 # ToronHot Dog
 
 ## Summary
-**Created and Developed by Gregory P. Desrosiers (GregPDesSCH)**
+**Created and Developed by Gregory P. Desrosiers (GregPDesSCH)**  
 *University of Waterloo, Software Engineering 2019*
 
 Start Date: January 27, 2018
@@ -34,6 +34,7 @@ Twitter Bootstrap is used to provide the frontend look and feel. It's also used 
 
 Additional Resources and Libraries include Google Maps API v3 and Google Maps Directions API v3.
 
+As this is a conceptual project done for educational purposes, all the data used here is mock data, but to the most realistic as possible to provide certain accuracy on what the full website would be if this was to be moved on to a commercialized website.
 
 
 ## Setup Instructions
@@ -232,6 +233,11 @@ David Pagurek van Mossel
 
 **UNIVERSITY OF WATERLOO**
 
+*Original SE 464 Instructor*
+
+Werner Dietl
+
+
 *Producer*
 
 Derek Rayside
@@ -239,8 +245,7 @@ Derek Rayside
 
 *Executive Producers*
 
-Patrick Lam  
-Pearl Sullivan  
+Patrick Lam, Pearl Sullivan  
 
 
 *President and Vice-Chancellor*
@@ -254,7 +259,9 @@ Feridun Hamdullahpur
 
 *External Influences*
 
-Andrew Codispoti, Aaron Morais
+Andrew Codispoti, Anish Chopra, Aaron Morais   
+City of Toronto  
+Toronto Transit Commission  
 
 
 *Google Kitchener*
@@ -292,10 +299,16 @@ Ruby 2.3.3p222 (2016-11-21 revision 56859)
 Ruby on Rails 5.1.5  
 PostgreSQL 10.2, compiled by Visual C++ build 1800, 64-bit  
 Google Chrome v65.0.3325.181  
+Git v2.11.0.windows.1
+Google Maps (for actual location coordinates)
 
 
-*Follow me on [LinkedIn](https://www.linkedin.com/in/gregorydesrosiers/)*
+*Version Control Systems*
 
+GitHub, Inc.
+
+
+*Follow me on [LinkedIn](https://www.linkedin.com/in/gregorydesrosiers/)*  
 [https://gregpdessch.github.io](https://gregpdessch.github.io)
 
 
