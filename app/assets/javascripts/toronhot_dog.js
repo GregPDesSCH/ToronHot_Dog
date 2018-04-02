@@ -222,8 +222,8 @@ function initMap(searchResultsData) {
 
 
     var contentStringPart1 = '<div id="content" style="height: 260px; width: 350px;">'+
-           '<h1 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
-           '</h1>' +
+           '<h4 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
+           '</h4>' +
            '<div id="bodyContent">' +
            '<span class="directionsLink" data-hot-dog-stand-index="' + currentHotDogStand.id + '" data-latitude="'
            + currentHotDogStand.latitude +'" data-longitude="' + currentHotDogStand.longitude + '">' +
@@ -237,7 +237,7 @@ function initMap(searchResultsData) {
 
     //console.log(contentStringPart1);
 
-    var contentStringPart2 = '<h3>Available Foods: </h3>' +
+    var contentStringPart2 = '<h5>Available Foods: </h5>' +
       '<table>' +
       '<tr><th>Side / Dish</th><th>Price</th></tr>';;
     for (var foodIndex = 0; foodIndex < searchResultsData.availableFoodPrices[index].length; foodIndex++) {
@@ -250,7 +250,7 @@ function initMap(searchResultsData) {
     //console.log(contentStringPart2);
 
 
-    var contentStringPart3 = '<h3>Available Drinks: </h3>' +
+    var contentStringPart3 = '<h5>Available Drinks: </h5>' +
     '<table>' +
     '<tr><th>Drink</th><th>Price</th></tr>';
     for (var drinkIndex = 0; drinkIndex < searchResultsData.availableDrinkPrices[index].length; drinkIndex++) {
@@ -263,7 +263,7 @@ function initMap(searchResultsData) {
     //console.log(contentStringPart3);
 
 
-    var contentStringPart4 = '<h3>Available Condiments: </h3>' +
+    var contentStringPart4 = '<h5>Available Condiments: </h5>' +
     '<p>';
     var currentCondimentString = '';
     for (var condimentIndex = 0; condimentIndex < searchResultsData.availableCondiments[index].length; condimentIndex++) {
@@ -291,12 +291,12 @@ function initMap(searchResultsData) {
     var contentStringPart5 = '';
 
     if (Object.keys(currentHotDogStand.additionalOptions).length != 0) {
-      contentStringPart5 = '<h3>Additional Options: </h3>';
+      contentStringPart5 = '<h5>Additional Options: </h5>';
 
       var additionalOption = '';
 
       for (currentKey in currentHotDogStand.additionalOptions) {
-        contentStringPart5 += '<h4>' + currentKey + ':</h4><p>';
+        contentStringPart5 += '<h6>' + currentKey + ':</h6><p>';
         for (var elementIndex = 0; elementIndex < currentHotDogStand.additionalOptions[currentKey].length; elementIndex++) {
 
           additionalOption = currentHotDogStand.additionalOptions[currentKey][elementIndex];
@@ -583,8 +583,13 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
     };
 
     directionsService.route(directionsRequest, function(response, status) {
+
+      $("#directionsPanel").html("");
+
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+      } else {
+        $("#directionsPanel").html("Sorry, the directions to this stand are not available. Please try again later.");
       }
     });
 
