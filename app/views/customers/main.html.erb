@@ -2,8 +2,9 @@
   ToronHot Dog
   View Templates - Main Page
 
+  Version 1.0
   Start Date: March 7, 2018
-  End Date: March , 2018
+  End Date: April , 2018
 
   File Name: main.html.erb
 
@@ -13,118 +14,128 @@
 
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
-
-<%# <%= form_tag("customers/searchResults", method: "post", id: "hotDogStandSearchEngine") do %>
-  <div id="locationReferenceSelection">
-    <div class="border border-secondary rounded-top">
-      <button class="btn btn-secondary col-2" type="button" data-toggle="collapse" data-target="#referenceLocation" aria-expanded="false" aria-controls="referenceLocation">
-          Search Location
-      </button>
+<div id="locationReferenceSelection">
+  <div class="border border-secondary rounded-top">
+    <button class="btn btn-secondary col-12" type="button" data-toggle="collapse" data-target="#referenceLocation" aria-expanded="false" aria-controls="referenceLocation">
+        Search Location
+    </button>
+  </div>
+  <div id="referenceLocation" class="border border-secondary rounded-bottom collapse" >
+    <h5>Where do you want to search a stand from?</h5>
+    <div class="form-check form-group form-row row justify-content-center">
+      <div class="col-11 col-sm-3">
+        <%= radio_button_tag(:locationSelection, 'majorIntersection', :checked, class: 'form-check-input') %>
+        <%= label_tag 'majorIntersection', 'Major Intersection', class: 'form-check-label'  %>
+      </div>
+      <select class="form-control custom-select col-11 col-sm-8" id="majorIntersections">
+      </select>
     </div>
-    <div id="referenceLocation" class="border border-secondary rounded-bottom collapse" >
-      <h5>Where do you want to search a stand from?</h5>
-      <div class="form-check">
-        <div>
-          <%= radio_button_tag(:locationSelection, 'majorIntersection', :checked, class: 'form-check-input') %>
-          <%= label_tag 'majorIntersection', 'Major Intersection', class: 'form-check-label'  %>
-        </div>
-        <select class="form-control" id="majorIntersections">
-
-        </select>
+    <div class="form-check form-group form-row row justify-content-center">
+      <div class="col-11 col-sm-3">
+        <%= radio_button_tag(:locationSelection, 'subwayStation', false, class: 'form-check-input') %>
+        <%= label_tag 'subwayStation', 'Subway Station', class: 'form-check-label'  %>
       </div>
-      <div class="form-check">
-        <div>
-          <%= radio_button_tag(:locationSelection, 'subwayStation', false, class: 'form-check-input') %>
-          <%= label_tag 'subwayStation', 'Subway Station', class: 'form-check-label'  %>
-        </div>
-
-        <select class="form-control" id="subwayStations" disabled>
-
-        </select>
+      <select class="form-control custom-select col-11 col-sm-8" id="subwayStations" disabled>
+      </select>
+    </div>
+    <div class="form-check form-group form-row row justify-content-center">
+      <div class="col-11 col-sm-3">
+        <%= radio_button_tag(:locationSelection, 'landmarks', false, class: 'form-check-input' ) %>
+        <%= label_tag 'landmarks', 'Landmarks', class: 'form-check-label'  %>
       </div>
-      <div class="form-check">
-        <div>
-          <%= radio_button_tag(:locationSelection, 'landmarks', false, class: 'form-check-input' ) %>
-          <%= label_tag 'landmarks', 'Landmarks', class: 'form-check-label'  %>
-        </div>
-        <select class="form-control" id="landmarks" disabled>
-
-        </select>
-      </div>
-      <div class="form-check">
+      <select class="form-control custom-select col-11 col-sm-8" id="landmarks" disabled>
+      </select>
+    </div>
+    <div class="form-check form-group form-row row  justify-content-center">
+      <div class="col-11">
         <div>
           <%= radio_button_tag(:locationSelection, 'latitudeAndLongitude', false, class: 'form-check-input') %>
           <%= label_tag 'latitudeAndLongitude', 'Latitude and Longitude', class: 'form-check-label'  %>
         </div>
-        <div>
-          <div class="form-group">
-            <h5>Latitude: </h5>
+        <div class="form-row row justify-content-around">
+          <div class="form-group col-4 col-sm-3">
+            <h6>Latitude: </h6>
             <input id="latitude" class="form-control" type="number" name="latitude" min="43.600000" max="43.750000" value="43.642566" step="0.000001" disabled>
           </div>
-          <div class="form-group">
-            <h5>Longitude: </h5>
+          <div class="form-group col-4 col-sm-3">
+            <h6>Longitude: </h6>
             <input id="longitude" class="form-control" type="number" name="longitude" min="-79.510000" max="-79.260000" value="-79.387056" step="0.000001" disabled>
           </div>
         </div>
       </div>
+    </div>
 
-      <div>
-        <h5>Distance Range:</h5>
-        <div id="distanceUnitSelection" class="form-check">
-          <div>
-            <%= radio_button_tag(:distanceUnit, 'metric', :checked, class: 'form-check-input') %>
-            <%= label_tag 'metric', 'Metric', class: 'form-check-label' %>
-          </div>
-          <div>
-            <%= radio_button_tag(:distanceUnit, 'imperial', false, class: 'form-check-input') %>
-            <%= label_tag 'imperial', 'US / UK Imperial', class: 'form-check-label' %>
-          </div>
+    <div>
+      <h6>Distance Range:</h6>
+      <div id="distanceUnitSelection" class="form-check form-row row justify-content-center">
+        <div class="form-group col-3">
+          <%= radio_button_tag(:distanceUnit, 'metric', :checked, class: 'form-check-input') %>
+          <%= label_tag 'metric', 'Metric', class: 'form-check-label' %>
         </div>
-        <select id="distanceValues" class="form-control">
-
+        <div class="form-group col-3">
+          <%= radio_button_tag(:distanceUnit, 'imperial', false, class: 'form-check-input') %>
+          <%= label_tag 'imperial', 'US / UK Imperial', class: 'form-check-label' %>
+        </div>
+        <select id="distanceValues" class="form-control custom-select col-5">
         </select>
       </div>
     </div>
-
   </div>
+</div>
 
 
-  <div>
-    <div class="border border-light rounded-top">
-      <button class="btn btn-light col-2" type="button" data-toggle="collapse" data-target="#priceRange" aria-expanded="false" aria-controls="priceRange">
-          Price Range
-      </button>
-    </div>
-    <div id="priceRange"  class="border border-light rounded-bottom collapse">
-      <h5>Do you want a price range?</h5>
-      <div>
+<div>
+  <div class="border border-light rounded-top">
+    <button class="btn btn-light col-12" type="button" data-toggle="collapse" data-target="#priceRange" aria-expanded="false" aria-controls="priceRange">
+        Price Range
+    </button>
+  </div>
+  <div id="priceRange"  class="border border-light rounded-bottom collapse">
+    <h5>Do you want a price range?</h5>
+    <div class="form-group form-row row align-items-center justify-content-around">
+      <div class="col-4 col-sm-2">
         <%= radio_button_tag(:priceRangeSpecified, 'priceRangeYes', :checked) %>
         <%= label_tag 'priceRangeYes', 'Yes' %>
+      </div>
+      <div class="col-4 col-sm-2">
         <%= radio_button_tag(:priceRangeSpecified, 'priceRangeNo') %>
         <%= label_tag 'priceRangeNo', 'No' %>
       </div>
-      <div class="form-group">
-        <h5>From: </h5>
-        $<input type="number" class="form-control" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
+
+      <div class="col-5 col-sm-3">
+        <h6>From: </h6>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">$</div>
+          </div>
+          <input type="number" class="form-control" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
+        </div>
       </div>
-      <div class="form-group">
-        <h5>To: </h5>
-        $<input type="number" class="form-control" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+      <div class="col-5 col-sm-3">
+        <h6>To: </h6>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">$</div>
+          </div>
+          <input type="number" class="form-control" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div>
-    <div class="border border-dark rounded-top">
-      <button class="btn btn-light col-2" type="button" data-toggle="collapse" data-target="#food" aria-expanded="false" aria-controls="food">
-          Food
-      </button>
-    </div>
-    <div id="food" class="form-check border border-dark rounded-bottom collapse">
-      <h5>Which food do you prefer getting?</h5>
-      <div>
+<div>
+  <div class="border border-dark rounded-top">
+    <button class="btn btn-light col-12" type="button" data-toggle="collapse" data-target="#food" aria-expanded="false" aria-controls="food">
+        Food
+    </button>
+  </div>
+  <div id="food" class="form-check border border-dark rounded-bottom collapse">
+    <h5>Which food do you prefer getting?</h5>
+    <div class="form-group form-row row justify-content-center">
+      <div class="col-11 form-group form-row row justify-content-center">
         <% @foods.each do |currentFood|  %>
-          <div>
+          <div class="col-6 col-sm-4 col-md-3 col-xl-2">
             <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false,
               class: 'form-check-input', data: { "food_Index" => currentFood.id}  %>
             <%= label_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, class: 'form-check-label' %>
@@ -133,18 +144,20 @@
       </div>
     </div>
   </div>
+</div>
 
-  <div>
-    <div class="border border-dark rounded-top">
-      <button class="btn btn-light col-2" type="button" data-toggle="collapse" data-target="#drinks" aria-expanded="false" aria-controls="drinks">
-          Drinks
-      </button>
-    </div>
-    <div id="drinks" class="form-check border border-dark rounded-bottom collapse">
-      <h5>Which drink do you prefer getting?</h5>
-      <div>
+<div>
+  <div class="border border-dark rounded-top">
+    <button class="btn btn-light col-12" type="button" data-toggle="collapse" data-target="#drinks" aria-expanded="false" aria-controls="drinks">
+        Drinks
+    </button>
+  </div>
+  <div id="drinks" class="form-check border border-dark rounded-bottom collapse">
+    <h5>Which drink do you prefer getting?</h5>
+    <div class="form-group form-row row justify-content-center">
+      <div class="col-11 form-group form-row row justify-content-center">
         <% @drinks.each do |currentDrink|  %>
-          <div>
+          <div class="col-6 col-sm-4 col-xl-3">
             <%= check_box_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, false,
               class: 'form-check-input', data: { "drink_Index" => currentDrink.id }  %>
             <%= label_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, class: 'form-check-label' %>
@@ -153,18 +166,20 @@
       </div>
     </div>
   </div>
+</div>
 
-  <div>
-    <div class="border border-dark rounded-top">
-      <button class="btn btn-light col-2" type="button" data-toggle="collapse" data-target="#condiments" aria-expanded="false" aria-controls="condiments">
-          Condiments
-      </button>
-    </div>
-    <div id="condiments" class="form-check border border-dark rounded-bottom collapse">
-      <h5>Which condiment do you prefer having the food with?</h5>
-      <div>
+<div>
+  <div class="border border-dark rounded-top">
+    <button class="btn btn-light col-12" type="button" data-toggle="collapse" data-target="#condiments" aria-expanded="false" aria-controls="condiments">
+        Condiments
+    </button>
+  </div>
+  <div id="condiments" class="form-check border border-dark rounded-bottom collapse">
+    <h5>Which condiment do you prefer having the food with?</h5>
+    <div class="form-group form-row row justify-content-center">
+      <div class="col-11 form-group form-row row justify-content-center">
         <% @condiments.each do |currentCondiment|  %>
-          <div>
+          <div class="col-6 col-sm-4 col-md-3 col-xl-2">
             <%= check_box_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, false,
               class: 'form-check-input', data: { "condiment_Index" => currentCondiment.id } %>
             <%= label_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, class: 'form-check-label' %>
@@ -173,10 +188,10 @@
       </div>
     </div>
   </div>
+</div>
 
-  <div class="row justify-content-center">
-    <%= button_tag(type: 'submit', id: 'findHotDogStands', class: 'btn btn-dark col-2') do %>
-      Find Hot Dog Stands
-    <% end %>
-  </div>
-<%# <% end %>
+<div class="row justify-content-center">
+  <%= button_tag(type: 'submit', id: 'findHotDogStands', class: 'btn btn-dark col-11') do %>
+    Find Hot Dog Stands
+  <% end %>
+</div>
