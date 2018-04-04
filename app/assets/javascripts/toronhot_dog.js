@@ -559,6 +559,7 @@ function loadSubmitButtonListener() {
 
             $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
+            $('[data-toggle="tooltip"]').tooltip();
             initMap(data);
           });
         else
@@ -576,10 +577,23 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
   $(".directionsLink").on('click', function(){
     var hotDogStandIndex = $(this).attr("data-hot-dog-stand-index");
 
+
+    var desiredTravelMode;
+
+    if ($("#travelModeSelection_drivingTravelMode").is(':checked'))
+      desiredTravelMode = google.maps.DirectionsTravelMode.DRIVING;
+    else if ($("#travelModeSelection_publicTransitTravelMode").is(':checked'))
+      desiredTravelMode = google.maps.DirectionsTravelMode.TRANSIT;
+    else if ($("#travelModeSelection_bicyclingTravelMode").is(':checked'))
+      desiredTravelMode = google.maps.DirectionsTravelMode.BICYCLING;
+    else
+      desiredTravelMode = google.maps.DirectionsTravelMode.WALKING;
+
+
     var directionsRequest = {
       origin: new google.maps.LatLng(startPoint.lat, startPoint.lng),
       destination: new google.maps.LatLng($(this).attr("data-latitude"), $(this).attr("data-longitude")),
-      travelMode: google.maps.DirectionsTravelMode.WALKING
+      travelMode: desiredTravelMode
     };
 
     directionsService.route(directionsRequest, function(response, status) {
