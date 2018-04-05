@@ -20,17 +20,17 @@
   <div>Select a travel mode for directions.</div>
   <div class="form-check form-row row justify-content-center">
     <div class="form-group row col-11 justify-content-center">
-      <div class="col-5 col-md-3 col-lg-2 col-xl-1">
+      <div class="col-5 col-md-3 col-lg-2">
         <%= radio_button_tag(:travelModeSelection, 'drivingTravelMode', :checked, class: 'form-check-input',
           'data-toggle': 'tooltip', title:'Drive through Toronto\'s streets in your car. Recommended for long trips.') %>
         <%= label_tag 'travelModeSelection_drivingTravelMode', 'Driving', class: 'form-check-label'  %>
       </div>
-      <div class="col-5 col-md-3 col-lg-2 col-xl-1">
+      <div class="col-5 col-md-3 col-lg-2">
         <%= radio_button_tag(:travelModeSelection, 'publicTransitTravelMode', false, class: 'form-check-input',
           'data-toggle': 'tooltip', title: 'Use the TTC streetcars, subway system, or buses to get to your destination. Recommended for long trips.') %>
         <%= label_tag 'travelModeSelection_publicTransitTravelMode', 'Public Transit', class: 'form-check-label'  %>
       </div>
-      <div class="col-5 col-md-3 col-lg-2 col-xl-1">
+      <div class="col-5 col-md-3 col-lg-2">
         <%= radio_button_tag(:travelModeSelection, 'bicyclingTravelMode', false, class: 'form-check-input',
           'data-toggle': 'tooltip', title: 'Bicycle your way there while simultaneously doing some exercise. Enjoy the scenery!') %>
         <%= label_tag 'travelModeSelection_bicyclingTravelMode', 'Bicycling', class: 'form-check-label'  %>
@@ -43,4 +43,4 @@
     </div>
   </div>
 </div>
-<div id="directionsPanel" class="border border-dark">Select a stand, then click on "Get directions" to get navigation directions.</div>
+<div id="directionsPanel" class="border border-dark">Select a stand, then click on "Get directions" to get navigation directions. Powered by Google.</div>

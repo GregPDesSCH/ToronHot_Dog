@@ -67,17 +67,17 @@
 
     <div>
       <h6>Distance Range:</h6>
-      <div id="distanceUnitSelection" class="form-check form-row row justify-content-center">
-        <div class="form-group col-3">
+
+      <div class="form-check form-group form-row row justify-content-center">
+        <div class="col-3">
           <%= radio_button_tag(:distanceUnit, 'metric', :checked, class: 'form-check-input') %>
           <%= label_tag 'metric', 'Metric', class: 'form-check-label' %>
         </div>
-        <div class="form-group col-3">
+        <div class="col-3">
           <%= radio_button_tag(:distanceUnit, 'imperial', false, class: 'form-check-input') %>
           <%= label_tag 'imperial', 'US / UK Imperial', class: 'form-check-label' %>
         </div>
-        <select id="distanceValues" class="form-control custom-select col-5">
-        </select>
+        <select class="form-control custom-select col-3" id="distanceValues"></select>
       </div>
     </div>
   </div>
@@ -93,31 +93,33 @@
   <div id="priceRange"  class="border border-light rounded-bottom collapse">
     <h5>Do you want a price range?</h5>
     <div class="form-group form-row row align-items-center justify-content-around">
-      <div class="col-4 col-sm-2">
-        <%= radio_button_tag(:priceRangeSpecified, 'priceRangeYes', :checked) %>
-        <%= label_tag 'priceRangeYes', 'Yes' %>
-      </div>
-      <div class="col-4 col-sm-2">
-        <%= radio_button_tag(:priceRangeSpecified, 'priceRangeNo') %>
-        <%= label_tag 'priceRangeNo', 'No' %>
-      </div>
-
-      <div class="col-5 col-sm-3">
-        <h6>From: </h6>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">$</div>
-          </div>
-          <input type="number" class="form-control" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
+      <div class="col-10 row justify-content-around">
+        <div class="col-4 col-sm-2">
+          <%= radio_button_tag(:priceRangeSpecified, 'priceRangeYes', :checked) %>
+          <%= label_tag 'priceRangeYes', 'Yes' %>
         </div>
-      </div>
-      <div class="col-5 col-sm-3">
-        <h6>To: </h6>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">$</div>
+        <div class="col-4 col-sm-2">
+          <%= radio_button_tag(:priceRangeSpecified, 'priceRangeNo') %>
+          <%= label_tag 'priceRangeNo', 'No' %>
+        </div>
+
+        <div class="col-5 col-sm-3">
+          <h6>From: </h6>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">$</div>
+            </div>
+            <input type="number" class="form-control" name="minimumPrice" id="minimumPrice" min="0.01" max="10.00" value="1.00" step="0.01">
           </div>
-          <input type="number" class="form-control" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+        </div>
+        <div class="col-5 col-sm-3">
+          <h6>To: </h6>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">$</div>
+            </div>
+            <input type="number" class="form-control" name="maximumPrice" id="maximumPrice" min="0.01" max="10.00" value="1.50" step="0.01">
+          </div>
         </div>
       </div>
     </div>
@@ -130,10 +132,10 @@
         Food
     </button>
   </div>
-  <div id="food" class="form-check border border-dark rounded-bottom collapse">
+  <div id="food" class="border border-dark rounded-bottom collapse">
     <h5>Which food do you prefer getting?</h5>
-    <div class="form-group form-row row justify-content-center">
-      <div class="col-11 form-group form-row row justify-content-center">
+    <div class="form-check form-group row justify-content-center">
+      <div class="col-11 form-group row justify-content-center">
         <% @foods.each do |currentFood|  %>
           <div class="col-6 col-sm-4 col-md-3 col-xl-2">
             <%= check_box_tag 'foodName' + currentFood.id.to_s, currentFood.foodName, false,
@@ -152,10 +154,10 @@
         Drinks
     </button>
   </div>
-  <div id="drinks" class="form-check border border-dark rounded-bottom collapse">
+  <div id="drinks" class="border border-dark rounded-bottom collapse">
     <h5>Which drink do you prefer getting?</h5>
-    <div class="form-group form-row row justify-content-center">
-      <div class="col-11 form-group form-row row justify-content-center">
+    <div class="form-check form-group row justify-content-center">
+      <div class="col-11 form-group row justify-content-center">
         <% @drinks.each do |currentDrink|  %>
           <div class="col-6 col-sm-4 col-xl-3">
             <%= check_box_tag 'drinkName' + currentDrink.id.to_s, currentDrink.drinkName, false,
@@ -174,10 +176,10 @@
         Condiments
     </button>
   </div>
-  <div id="condiments" class="form-check border border-dark rounded-bottom collapse">
+  <div id="condiments" class="border border-dark rounded-bottom collapse">
     <h5>Which condiment do you prefer having the food with?</h5>
-    <div class="form-group form-row row justify-content-center">
-      <div class="col-11 form-group form-row row justify-content-center">
+    <div class="form-check form-group row justify-content-center">
+      <div class="col-11 form-group row justify-content-center">
         <% @condiments.each do |currentCondiment|  %>
           <div class="col-6 col-sm-4 col-md-3 col-xl-2">
             <%= check_box_tag 'condimentName' + currentCondiment.id.to_s, currentCondiment.nameOfCondiment, false,

@@ -19,7 +19,6 @@ const METRIC_VALUES = {
   "1 km": 1,
   "2 km": 2,
   "5 km": 5,
-  "10 km": 10
 }
 
 const IMPERIAL_VALUES = {
@@ -32,7 +31,7 @@ const IMPERIAL_VALUES = {
   "1/2 mi": 0.5,
   "1 mi": 1,
   "2 mi": 2,
-  "5 mi": 5
+  "4 mi": 4
 };
 
 
@@ -351,8 +350,8 @@ function initMap(searchResultsData) {
 function loadMetricValues() {
   $.each(METRIC_VALUES, function(key,value) {
     $("#distanceValues").append($("<option></option>")
-      .attr("value", value).text(key));
-    });
+      .attr("data-value", value).text(key));
+  });
 }
 
 function loadMajorIntersections() {
@@ -425,7 +424,8 @@ function loadRadioButtonListenersForLocationSelection () {
 }
 
 function loadChangeListenerForDistanceUnit() {
-  $("#distanceUnitSelection").change(function() {
+  $("input:radio[name=distanceUnit]").change(function() {
+    console.log("Listener called");
     $("#distanceValues").empty();
 
     if ($("#distanceUnit_metric").is(':checked'))
@@ -595,6 +595,10 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
       destination: new google.maps.LatLng($(this).attr("data-latitude"), $(this).attr("data-longitude")),
       travelMode: desiredTravelMode
     };
+
+    $("html, body").scrollTop($("#directionsPanel").offset().top);
+
+    $("#directionsPanel").html("Calculating navigation route and directions... Please wait");
 
     directionsService.route(directionsRequest, function(response, status) {
 
