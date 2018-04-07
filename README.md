@@ -4,7 +4,8 @@
 **Created and Developed by Gregory P. Desrosiers (GregPDesSCH)**  
 *University of Waterloo, Software Engineering 2019*
 
-Start Date: January 27, 2018
+VERSION 1.0
+Start Date: January 27, 2018  
 End Date:
 
 © 2018 Gregory Desrosiers. All rights reserved.
@@ -272,6 +273,11 @@ Caitlin McDonough
 *Shopify, Inc.*
 
 Allie Speers, Jenn Vanden Elzen
+
+
+*GitHub, Inc.*
+
+Veronica Ramirez, former 2016 Summer Interns
 
 
 *Websites and QA*
