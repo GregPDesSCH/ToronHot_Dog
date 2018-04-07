@@ -170,7 +170,7 @@ function initMap(searchResultsData) {
   var uluru = {lat: 43.6503521, lng: -79.3837953};
   var mapCenter = {lat: 43.642566, lng: -79.387056};
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 13,
     center: mapCenter
   });
 
@@ -431,12 +431,12 @@ function loadChangeListenerForDistanceUnit() {
     if ($("#distanceUnit_metric").is(':checked'))
       $.each(METRIC_VALUES, function(key,value) {
         $("#distanceValues").append($("<option></option>")
-          .attr("value", value).text(key));
+          .attr("data-value", value).text(key));
         });
     else
       $.each(IMPERIAL_VALUES, function(key,value) {
         $("#distanceValues").append($("<option></option>")
-          .attr("value", value).text(key));
+          .attr("data-value", value).text(key));
         });
   });
 }
@@ -447,7 +447,7 @@ function loadSubmitButtonListener() {
   $("#findHotDogStands").click(function() {
 
     $(this).prop('disabled', true);
-    $(this).html("Searching; please wait...");
+    $(this).html("<span class='searchFormHeaders pleaseWaitColor'>Searching; please wait...</span>");
 
     // Compile the data together
     var searchCriteria = {};
@@ -481,7 +481,8 @@ function loadSubmitButtonListener() {
     else
       searchCriteria.distanceUnit = "MI";
 
-    searchCriteria.distanceRange = $("#distanceValues").find('option:selected').val();
+
+    searchCriteria.distanceRange = $("#distanceValues").find('option:selected').attr("data-value");
     //console.log(searchCriteria.distanceRange);
 
 
@@ -503,10 +504,14 @@ function loadSubmitButtonListener() {
 
     // Cycle through all the condiment selections
     // Insight from https://stackoverflow.com/questions/6622224/jquery-removes-empty-arrays-when-sending
-    searchCriteria.selectedFoods = {
+    var selectedPreferencesObject = {
       values: [],
       length: 0
     };
+
+    // Insight from https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
+    searchCriteria.selectedFoods = jQuery.extend(true, {}, selectedPreferencesObject);
+
     //console.log($('#food input:checked'));
     $('#food input:checked').each(function() {
       //console.log($(this).data().foodIndex);
@@ -515,10 +520,7 @@ function loadSubmitButtonListener() {
     });
 
     // Cycle through all the drink selections
-    searchCriteria.selectedDrinks = {
-      values: [],
-      length: 0
-    };
+    searchCriteria.selectedDrinks = jQuery.extend(true, {}, selectedPreferencesObject);
 
     //console.log($('#drinks input:checked'));
     $('#drinks input:checked').each(function() {
@@ -528,10 +530,7 @@ function loadSubmitButtonListener() {
     });
 
     // Cycle through all the condiment selections
-    searchCriteria.selectedCondiments = {
-      values: [],
-      length: 0
-    };
+    searchCriteria.selectedCondiments = jQuery.extend(true, {}, selectedPreferencesObject);
 
     //console.log($('#condiments input:checked'));
     $('#condiments input:checked').each(function() {
@@ -550,21 +549,21 @@ function loadSubmitButtonListener() {
       data: searchCriteria,
       dataType: "json",
       success: function(data) {
-        console.log(data);
-        console.log("Number of search results: " + data.numberOfResults);
+        //console.log(data);
+        //console.log("Number of search results: " + data.numberOfResults);
 
         if (data.numberOfResults > 0)
           $.get("customers/searchResults", function( renderedHtml ) {
-            console.log(renderedHtml);
+            //console.log(renderedHtml);
 
             $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
             initMap(data);
           });
         else
           $.get("customers/noSearchResults", function( renderedHtml ) {
-            console.log(renderedHtml);
+            //console.log(renderedHtml);
             $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
           });
@@ -589,16 +588,23 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
     else
       desiredTravelMode = google.maps.DirectionsTravelMode.WALKING;
 
+    var desiredDistanceUnits;
+
+    if ($("#travelDistanceUnit_metric").is(':checked'))
+      desiredDistanceUnits = google.maps.UnitSystem.METRIC;
+    else
+      desiredDistanceUnits = google.maps.UnitSystem.IMPERIAL;
 
     var directionsRequest = {
       origin: new google.maps.LatLng(startPoint.lat, startPoint.lng),
       destination: new google.maps.LatLng($(this).attr("data-latitude"), $(this).attr("data-longitude")),
-      travelMode: desiredTravelMode
+      travelMode: desiredTravelMode,
+      unitSystem: desiredDistanceUnits
     };
 
     $("html, body").scrollTop($("#directionsPanel").offset().top);
 
-    $("#directionsPanel").html("Calculating navigation route and directions... Please wait");
+    $("#directionsPanel").html("<span class='heavyText'>Calculating navigation route and directions... Please wait</span>");
 
     directionsService.route(directionsRequest, function(response, status) {
 
@@ -623,7 +629,7 @@ function initializeListenersAndValues() {
   loadRadioButtonListenersForLocationSelection ();
   loadChangeListenerForDistanceUnit();
   loadSubmitButtonListener();
-
+  $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
 }
 
 $(function() {
@@ -631,6 +637,10 @@ $(function() {
   initializeListenersAndValues();
 
   $("body").on('click', '#goBackSearchEnginePageLink', function (){
+    $("#goBackSearchEnginePageLink").addClass("text-muted");
+    $("#goBackSearchEnginePageLink").html("Loading, please wait...");
+    $("#goBackSearchEnginePageLink").removeAttr('id');
+
     $.get("customers/main", function( renderedHtml ) {
 
       var $replacementElement = $("<output>").append($.parseHTML(renderedHtml)).find("div#mainDiv")[0];
