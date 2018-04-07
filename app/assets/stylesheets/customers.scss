@@ -1,3 +1,61 @@
 // Place all the styles related to the Customers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin set-font-weight($fontWeight) {
+  font-weight: $fontWeight;
+}
+
+@mixin set-font-color($fontColor) {
+  color: $fontColor;
+}
+
+@mixin set-cursor($cursor) {
+  cursor: $cursor;
+}
+
+@mixin set-font-weight-and-cursor($fontWeight, $cursor) {
+  @include set-font-weight($fontWeight);
+  @include set-cursor($cursor);
+}
+
+#mainDiv {
+  margin: 1em 0 1em 0;
+}
+
+.heavyText {
+  @include set-font-weight(600);
+}
+
+.pleaseWaitColor {
+  @include set-font-color(#000);
+}
+
+.directionsLink {
+  @include set-font-color(#f00);
+}
+
+.directionsLink:hover {
+  @include set-font-color(#a00a);
+  @include set-font-weight-and-cursor(600, pointer);
+}
+
+.searchCriteriaBlock {
+  margin: 2em 0.5em 2em 0.5em;
+}
+
+input[type="radio"]+label:hover {
+  @include set-font-weight-and-cursor(600, pointer);
+}
+
+input[type="checkbox"]+label:hover {
+  @include set-font-weight-and-cursor(600, pointer);
+}
+
+#goBackSearchEnginePageLink {
+  color: #aa00aa;
+}
+
+#goBackSearchEnginePageLink:hover {
+  @include set-font-weight-and-cursor(600, pointer);
+}

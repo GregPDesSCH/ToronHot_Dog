@@ -11,9 +11,8 @@
 
 %>
 
-<h2>Search Results</h2>
 <div>Click on one of the markers shown below to show info on the stand.</div>
-<div id="goBackSearchEnginePageLink">Back to Search</div>
+<span id="goBackSearchEnginePageLink">Back to Search</span>
 
 <div id="map" style="height: 500px; width: 100%; background-color: grey;"></div>
 <div>
@@ -42,5 +41,22 @@
       </div>
     </div>
   </div>
+
+  <div class="form-check form-row row justify-content-center">
+    <div class="form-group row col-11 justify-content-center">
+      <div class="col-4 col-md-3 col-lg-2">Distance unit:</div>
+      <div class="col-2 col-lg-1">
+        <%= radio_button_tag(:travelDistanceUnit, 'metric', :checked, class: 'form-check-input',
+          'data-toggle': 'tooltip', title:'Kilometers, meters, and centimeters.') %>
+        <%= label_tag 'travelDistanceUnit_metric', 'Metric', class: 'form-check-label'  %>
+      </div>
+      <div class="col-5 col-sm-4 col-md-3 col-lg-2">
+        <%= radio_button_tag(:travelDistanceUnit, 'imperial', false, class: 'form-check-input',
+          'data-toggle': 'tooltip', title:'Miles, yards, feet, and inches.') %>
+        <%= label_tag 'travelDistanceUnit_imperial', 'US / UK Imperial', class: 'form-check-label'  %>
+      </div>
+    </div>
+  </div>
+
 </div>
 <div id="directionsPanel" class="border border-dark">Select a stand, then click on "Get directions" to get navigation directions. Powered by Google.</div>
