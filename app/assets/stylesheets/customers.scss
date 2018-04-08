@@ -1,6 +1,14 @@
-// Place all the styles related to the Customers controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+    ToronHot Dog
+    Frontend - Stylesheet
+
+    Start Date: April 7, 2018
+    End Date: April , 2018
+
+    File Name: customers.scss
+
+    Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
+*/
 
 @mixin set-font-weight($fontWeight) {
   font-weight: $fontWeight;
@@ -19,8 +27,20 @@
   @include set-cursor($cursor);
 }
 
+#torontoHotDogLeftSide {
+  @include set-font-color(#F00);
+}
+
+#torontoHotDogCenterSide {
+  @include set-font-color(#DD0);
+}
+
+#torontoHotDogRightSide {
+  @include set-font-color(#090);
+}
+
 #mainDiv {
-  margin: 1em 0 1em 0;
+  margin: 1.5em 0 1.5em 0;
 }
 
 .heavyText {
@@ -41,7 +61,7 @@
 }
 
 .searchCriteriaBlock {
-  margin: 2em 0.5em 2em 0.5em;
+  margin: 3em 0.5em 3em 0.5em;
 }
 
 input[type="radio"]+label:hover {
