@@ -3,12 +3,13 @@
     Frontend - Application Behavior Code
 
     Start Date: March 17, 2018
-    End Date: March , 2018
+    End Date: April , 2018
 
     File Name: toronhot_dog.js
 
     Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
 */
+
 const METRIC_VALUES = {
   "No Range": 0,
   "10 m": 0.01,
@@ -157,16 +158,117 @@ const LANDMARKS = {
 };
 
 
+function contentStringHead(currentHotDogStand) {
+  var contentStringHead = '<div id="content" style="height: 260px; width: 350px;">'+
+         '<h4 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
+         '</h4>' +
+         '<div id="bodyContent">' +
+         '<span class="directionsLink" data-hot-dog-stand-index="' + currentHotDogStand.id + '" data-latitude="'
+         + currentHotDogStand.latitude +'" data-longitude="' + currentHotDogStand.longitude + '">' +
+         'Get directions' +
+         '</span>' +
+         '<div><b>' +
+         'Address: ' + currentHotDogStand.actualAddress +
+         '</b></div><div><b>' +
+         'Customer Rating: ' + parseFloat(currentHotDogStand.customerRating).toFixed(2) +
+         '</b></div>';
+  return contentStringHead;
+}
 
 
+
+function contentStringForAvailableFoods(standIndex, availableFoodPrices, allFoodInDatabase) {
+  var contentStringForFoods = '<h5>Available Foods: </h5>' +
+    '<table>' +
+    '<tr><th>Side / Dish</th><th>Price</th></tr>';;
+  for (var foodIndex = 0; foodIndex < availableFoodPrices[standIndex].length; foodIndex++) {
+    var currentFoodPriceElement = availableFoodPrices[standIndex][foodIndex];
+    contentStringForFoods += '<tr><td>' + allFoodInDatabase[currentFoodPriceElement.food_id - 1].foodName + '</td><td>$' +
+      parseFloat(currentFoodPriceElement.price).toFixed(2) + '</td></tr>';
+  }
+  contentStringForFoods += '</table>';
+
+  return contentStringForFoods;
+}
+
+
+
+function contentStringForAvailableDrinks(standIndex, availableDrinkPrices, allDrinksInDatabase) {
+  var contentStringForDrinks = '<h5>Available Drinks: </h5>' +
+  '<table>' +
+  '<tr><th>Drink</th><th>Price</th></tr>';
+  for (var drinkIndex = 0; drinkIndex < availableDrinkPrices[standIndex].length; drinkIndex++) {
+    var currentDrinkPriceElement = availableDrinkPrices[standIndex][drinkIndex];
+    contentStringForDrinks += '<tr><td>' + allDrinksInDatabase[currentDrinkPriceElement.drink_id - 1].drinkName + '</td><td>$' +
+      parseFloat(currentDrinkPriceElement.price).toFixed(2) + '</td></tr>';
+  }
+  contentStringForDrinks += '</table>'
+
+  return contentStringForDrinks;
+}
+
+
+
+
+function contentStringForAvailableCondiments(standIndex, availableCondiments, allCondimentsInDatabase) {
+  var contentStringForCondiments = '<h5>Available Condiments: </h5>' +
+  '<p>';
+  var currentCondimentString = '';
+  for (var condimentIndex = 0; condimentIndex < availableCondiments[standIndex].length; condimentIndex++) {
+    var currentCondimentElement = availableCondiments[standIndex][condimentIndex];
+
+    currentCondimentString = allCondimentsInDatabase[currentCondimentElement.condiment_id - 1].nameOfCondiment;
+
+    if (condimentIndex > 0)
+      currentCondimentString = currentCondimentString.toLowerCase();
+
+    contentStringForCondiments += currentCondimentString;
+
+    if (condimentIndex < availableCondiments[standIndex].length - 1)
+      contentStringForCondiments += ', ';
+  }
+  contentStringForCondiments += '</p>';
+
+  return contentStringForCondiments;
+}
+
+
+
+function contentStringTail(currentHotDogStand) {
+  var contentStringTail = '';
+
+  if (Object.keys(currentHotDogStand.additionalOptions).length != 0) {
+    contentStringTail = '<h5>Additional Options: </h5>';
+
+    var additionalOption = '';
+
+    for (currentKey in currentHotDogStand.additionalOptions) {
+      contentStringTail += '<h6>' + currentKey + ':</h6><p>';
+      for (var elementIndex = 0; elementIndex < currentHotDogStand.additionalOptions[currentKey].length; elementIndex++) {
+
+        additionalOption = currentHotDogStand.additionalOptions[currentKey][elementIndex];
+
+        if (elementIndex > 0)
+          additionalOption = additionalOption.toLowerCase();
+
+        contentStringTail += additionalOption;
+
+        if (elementIndex < currentHotDogStand.additionalOptions[currentKey].length - 1)
+          contentStringTail += ', ';
+      }
+
+      contentStringTail += '</p>';
+    }
+  }
+
+  return contentStringTail;
+}
 
 function initMap(searchResultsData) {
 
   if (searchResultsData == null)
-    return
+    return;
 
-  //console.log("initMap function has been called.");
-  //console.log(searchResultsData);
   var uluru = {lat: 43.6503521, lng: -79.3837953};
   var mapCenter = {lat: 43.642566, lng: -79.387056};
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -207,116 +309,30 @@ function initMap(searchResultsData) {
 
   //console.log(searchResultsData.resultingHotDogStands);
 
-  for (var index = 0; index < searchResultsData.resultingHotDogStands.length; index++) {
-    var currentHotDogStand = searchResultsData.resultingHotDogStands[index];
+  for (var standIndex = 0; standIndex < searchResultsData.resultingHotDogStands.length; standIndex++) {
+    var currentHotDogStand = searchResultsData.resultingHotDogStands[standIndex];
     //console.log(currentHotDogStand);
     var standLocation = {lat: parseFloat(currentHotDogStand.latitude), lng: parseFloat(currentHotDogStand.longitude)}
 
     hotDogStandsToDisplay.push(new google.maps.Marker({
       position: standLocation,
       map: map,
-      index: index,
+      index: standIndex,
       animation: null
     }));
 
 
-    var contentStringPart1 = '<div id="content" style="height: 260px; width: 350px;">'+
-           '<h4 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
-           '</h4>' +
-           '<div id="bodyContent">' +
-           '<span class="directionsLink" data-hot-dog-stand-index="' + currentHotDogStand.id + '" data-latitude="'
-           + currentHotDogStand.latitude +'" data-longitude="' + currentHotDogStand.longitude + '">' +
-           'Get directions' +
-           '</span>' +
-           '<div><b>' +
-           'Address: ' + currentHotDogStand.actualAddress +
-           '</b></div><div><b>' +
-           'Customer Rating: ' + parseFloat(currentHotDogStand.customerRating).toFixed(2) +
-           '</b></div>';
+    var contentStringForFoods = contentStringForAvailableFoods(standIndex, searchResultsData.availableFoodPrices,
+      searchResultsData.allFood);
 
-    //console.log(contentStringPart1);
+    var contentStringForDrinks = contentStringForAvailableDrinks(standIndex, searchResultsData.availableDrinkPrices,
+      searchResultsData.allDrinks);
 
-    var contentStringPart2 = '<h5>Available Foods: </h5>' +
-      '<table>' +
-      '<tr><th>Side / Dish</th><th>Price</th></tr>';;
-    for (var foodIndex = 0; foodIndex < searchResultsData.availableFoodPrices[index].length; foodIndex++) {
-      var currentFoodPriceElement = searchResultsData.availableFoodPrices[index][foodIndex];
-      contentStringPart2 += '<tr><td>' + searchResultsData.allFood[currentFoodPriceElement.food_id - 1].foodName + '</td><td>$' +
-        parseFloat(currentFoodPriceElement.price).toFixed(2) + '</td></tr>';
-    }
-    contentStringPart2 += '</table>';
+    var contentStringForCondiments = contentStringForAvailableCondiments(standIndex, searchResultsData.availableCondiments,
+      searchResultsData.allCondiments);
 
-    //console.log(contentStringPart2);
-
-
-    var contentStringPart3 = '<h5>Available Drinks: </h5>' +
-    '<table>' +
-    '<tr><th>Drink</th><th>Price</th></tr>';
-    for (var drinkIndex = 0; drinkIndex < searchResultsData.availableDrinkPrices[index].length; drinkIndex++) {
-      var currentDrinkPriceElement = searchResultsData.availableDrinkPrices[index][drinkIndex];
-      contentStringPart3 += '<tr><td>' + searchResultsData.allDrinks[currentDrinkPriceElement.drink_id - 1].drinkName + '</td><td>$' +
-        parseFloat(currentDrinkPriceElement.price).toFixed(2) + '</td></tr>';
-    }
-    contentStringPart3 += '</table>'
-
-    //console.log(contentStringPart3);
-
-
-    var contentStringPart4 = '<h5>Available Condiments: </h5>' +
-    '<p>';
-    var currentCondimentString = '';
-    for (var condimentIndex = 0; condimentIndex < searchResultsData.availableCondiments[index].length; condimentIndex++) {
-      var currentCondimentElement = searchResultsData.availableCondiments[index][condimentIndex];
-
-      currentCondimentString = searchResultsData.allCondiments[currentCondimentElement.condiment_id - 1].nameOfCondiment;
-
-      if (condimentIndex > 0)
-        currentCondimentString = currentCondimentString.toLowerCase();
-
-      contentStringPart4 += currentCondimentString;
-
-      if (condimentIndex < searchResultsData.availableCondiments[index].length - 1)
-        contentStringPart4 += ', ';
-    }
-    contentStringPart4 += '</p>';
-
-    //console.log(contentStringPart4);
-
-    //console.log("Additional options available? " + (Object.keys(currentHotDogStand.additionalOptions).length != 0));
-
-
-
-
-    var contentStringPart5 = '';
-
-    if (Object.keys(currentHotDogStand.additionalOptions).length != 0) {
-      contentStringPart5 = '<h5>Additional Options: </h5>';
-
-      var additionalOption = '';
-
-      for (currentKey in currentHotDogStand.additionalOptions) {
-        contentStringPart5 += '<h6>' + currentKey + ':</h6><p>';
-        for (var elementIndex = 0; elementIndex < currentHotDogStand.additionalOptions[currentKey].length; elementIndex++) {
-
-          additionalOption = currentHotDogStand.additionalOptions[currentKey][elementIndex];
-
-          if (elementIndex > 0)
-            additionalOption = additionalOption.toLowerCase();
-
-          contentStringPart5 += additionalOption;
-
-          if (elementIndex < currentHotDogStand.additionalOptions[currentKey].length - 1)
-            contentStringPart5 += ', ';
-        }
-
-        contentStringPart5 += '</p>';
-      }
-    }
-
-
-    var infoWindowContent = contentStringPart1 + contentStringPart2 + contentStringPart3 +
-      contentStringPart4 + contentStringPart5
-      '</div></div>'
+    var infoWindowContent = contentStringHead(currentHotDogStand) + contentStringForFoods + contentStringForDrinks +
+      contentStringForCondiments + contentStringTail(currentHotDogStand) + '</div></div>'
 
 
     var newInfoWindow = new google.maps.InfoWindow({
@@ -330,15 +346,15 @@ function initMap(searchResultsData) {
       loadDirectionListener(directionsService, directionsDisplay, referenceCenter);
     });
 
-    google.maps.event.addListener(hotDogStandsToDisplay[index], 'click', function() {
+    google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'click', function() {
       hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
     });
 
-    google.maps.event.addListener(hotDogStandsToDisplay[index], 'mouseover', function() {
+    google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'mouseover', function() {
       hotDogStandsToDisplay[this.index].setAnimation(google.maps.Animation.BOUNCE);
     });
 
-    google.maps.event.addListener(hotDogStandsToDisplay[index], 'mouseout', function() {
+    google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'mouseout', function() {
       hotDogStandsToDisplay[this.index].setAnimation(null);
     });
   }
@@ -481,26 +497,14 @@ function loadSubmitButtonListener() {
     else
       searchCriteria.distanceUnit = "MI";
 
-
     searchCriteria.distanceRange = $("#distanceValues").find('option:selected').attr("data-value");
-    //console.log(searchCriteria.distanceRange);
 
 
     // Price Range
-    //console.log("Is a price range specified? " + $("#priceRangeSpecified_priceRangeYes").is(':checked'));
     searchCriteria.isAPriceRangeSpecified = $("#priceRangeSpecified_priceRangeYes").is(':checked');
-    if ($("#priceRangeSpecified_priceRangeYes").is(':checked')) {
-      //console.log("Minimum Price: $" + $("#minimumPrice").val());
-      //console.log("Maximum Price: $" + $("#maximumPrice").val());
       searchCriteria.minimumItemPrice = $("#minimumPrice").val();
       searchCriteria.maximumItemPrice = $("#maximumPrice").val();
     }
-
-    /*console.log($("#locationSelection_majorIntersection").is(':checked'));
-    console.log($("#locationSelection_subwaySection").is(':checked'));
-    console.log($("#locationSelection_landmarks").is(':checked'));
-    console.log($("#locationSelection_latitudeAndLongitude").is(':checked'));*/
-
 
     // Cycle through all the condiment selections
     // Insight from https://stackoverflow.com/questions/6622224/jquery-removes-empty-arrays-when-sending
@@ -512,9 +516,7 @@ function loadSubmitButtonListener() {
     // Insight from https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
     searchCriteria.selectedFoods = jQuery.extend(true, {}, selectedPreferencesObject);
 
-    //console.log($('#food input:checked'));
     $('#food input:checked').each(function() {
-      //console.log($(this).data().foodIndex);
       searchCriteria.selectedFoods.values.push($(this).data().foodIndex);
       searchCriteria.selectedFoods.length++;
     });
@@ -522,9 +524,7 @@ function loadSubmitButtonListener() {
     // Cycle through all the drink selections
     searchCriteria.selectedDrinks = jQuery.extend(true, {}, selectedPreferencesObject);
 
-    //console.log($('#drinks input:checked'));
     $('#drinks input:checked').each(function() {
-      //console.log($(this).data().drinkIndex);
       searchCriteria.selectedDrinks.values.push($(this).data().drinkIndex);
       searchCriteria.selectedDrinks.length++;
     });
@@ -532,9 +532,7 @@ function loadSubmitButtonListener() {
     // Cycle through all the condiment selections
     searchCriteria.selectedCondiments = jQuery.extend(true, {}, selectedPreferencesObject);
 
-    //console.log($('#condiments input:checked'));
     $('#condiments input:checked').each(function() {
-      //console.log($(this).data().condimentIndex);
       searchCriteria.selectedCondiments.values.push($(this).data().condimentIndex);
       searchCriteria.selectedCondiments.length++;
     });
@@ -549,13 +547,8 @@ function loadSubmitButtonListener() {
       data: searchCriteria,
       dataType: "json",
       success: function(data) {
-        //console.log(data);
-        //console.log("Number of search results: " + data.numberOfResults);
-
         if (data.numberOfResults > 0)
           $.get("customers/searchResults", function( renderedHtml ) {
-            //console.log(renderedHtml);
-
             $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
             $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
@@ -563,7 +556,6 @@ function loadSubmitButtonListener() {
           });
         else
           $.get("customers/noSearchResults", function( renderedHtml ) {
-            //console.log(renderedHtml);
             $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
           });
@@ -575,7 +567,6 @@ function loadSubmitButtonListener() {
 function loadDirectionListener(directionsService, directionsDisplay, startPoint) {
   $(".directionsLink").on('click', function(){
     var hotDogStandIndex = $(this).attr("data-hot-dog-stand-index");
-
 
     var desiredTravelMode;
 
