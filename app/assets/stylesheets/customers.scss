@@ -56,7 +56,7 @@
 }
 
 .directionsLink:hover {
-  @include set-font-color(#a00a);
+  @include set-font-color(#a0a);
   @include set-font-weight-and-cursor(600, pointer);
 }
 
@@ -72,10 +72,10 @@ input[type="checkbox"]+label:hover {
   @include set-font-weight-and-cursor(600, pointer);
 }
 
-#goBackSearchEnginePageLink {
+#goBackSearchEnginePaneLink {
   color: #aa00aa;
 }
 
-#goBackSearchEnginePageLink:hover {
+#goBackSearchEnginePaneLink:hover {
   @include set-font-weight-and-cursor(600, pointer);
 }
