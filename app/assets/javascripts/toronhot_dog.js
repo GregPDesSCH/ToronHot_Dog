@@ -2,6 +2,11 @@
     ToronHot Dog
     Frontend - Application Behavior Code
 
+    This JavaScript file provides the major frontend functionality of this web app. It consists of various
+    listeners and functions for HTTP requests, as well as data to be considered by the form this app presents
+    to the frontend user.
+
+    VERSION 1.0
     Start Date: March 17, 2018
     End Date: April , 2018
 
@@ -10,8 +15,11 @@
     Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
 */
 
+
+// Dictionary of all the possible options the user can select when they want to use
+// a range that's in the metric system. All the values of these pairs are in kilometers
 const METRIC_VALUES = {
-  "No Range": 0,
+  "No Range": 0,        // No range limit
   "10 m": 0.01,
   "50 m": 0.05,
   "100 m": 0.1,
@@ -22,6 +30,8 @@ const METRIC_VALUES = {
   "5 km": 5,
 }
 
+// Dictionary of all the possible options the user can select when they want to use
+// a range that's in the imperial system. All the values of these pairs are in miles.
 const IMPERIAL_VALUES = {
   "No Range": 0,
   "50 ft": 0.0094697,
@@ -35,8 +45,11 @@ const IMPERIAL_VALUES = {
   "4 mi": 4
 };
 
-
+// Dictionary of all the major intersections where the user can choose one at their convenience.
+// These hold actual coordinates to respect the Google Maps API and the functions in the backend
+// that calculate the distance between two points.
 const MAJOR_INTERSECTIONS = {
+  // Queens Quay on Toronto's Waterfront
   "Queens Quay" : {
     "Queens Quay / Lower Sherbourne Street": {latitude: 43.645176, longitude: -79.365437},
     "Queens Quay / Lower Jarvis Street": {latitude: 43.643997, longitude: -79.369029},
@@ -48,6 +61,8 @@ const MAJOR_INTERSECTIONS = {
     "Queens Quay / Spadina Avenue": {latitude: 43.637743, longitude: -79.391906},
     "Queens Quay / Bathrust Street": {latitude: 43.636524, longitude: -79.399658}
   },
+  // Front Street, the street that goes across Union Station, one of the main entrances to the
+  // Toronto Metro Convention Centre, and a few other attractions.
   "Front Street" : {
     "Front Street / Lower Sherbourne Street": {latitude: 43.650384, longitude: -79.367921},
     "Front Street / Jarvis Street": {latitude: 43.649402, longitude: -79.371405},
@@ -58,6 +73,7 @@ const MAJOR_INTERSECTIONS = {
     "Front Street / Spadina Avenue": {latitude: 43.642741, longitude: -79.393836},
     "Front Street / Bathrust Street": {latitude: 43.638893, longitude: -79.400610}
   },
+  // King Street, Toronto's most busiest street through the use of light rail.
   "King Street" : {
     "King Street / Sherbourne Street": {latitude: 43.651276, longitude: -79.368257},
     "King Street / Jarvis Street": {latitude: 43.650438, longitude: -79.371910},
@@ -68,6 +84,7 @@ const MAJOR_INTERSECTIONS = {
     "King Street / Spadina Avenue": {latitude: 43.645487, longitude: -79.394900},
     "King Street / Bathrust Street": {latitude: 43.643882, longitude: -79.402653}
   },
+  // Adelaide Street, full of restaurants, bars and hotels.
   "Adelaide Street" : {
     "Adelaide Street / Sherbourne Street": {latitude: 43.652132, longitude: -79.368644},
     "Adelaide Street / Jarvis Street": {latitude: 43.651541, longitude: -79.372367},
@@ -78,6 +95,7 @@ const MAJOR_INTERSECTIONS = {
     "Adelaide Street / Spadina Avenue": {latitude: 43.646751, longitude: -79.395524},
     "Adelaide Street / Bathrust Street": {latitude: 43.645222, longitude: -79.403205}
   },
+  // Richmond Street, actual street of Google's Toronto offices
   "Richmond Street" : {
     "Richmond Street / Sherbourne Street": {latitude: 43.653393, longitude: -79.369115},
     "Richmond Street / Jarvis Street": {latitude: 43.652880, longitude: -79.372932},
@@ -88,6 +106,7 @@ const MAJOR_INTERSECTIONS = {
     "Richmond Street / Spadina Avenue": {latitude: 43.647852, longitude: -79.396018},
     "Richmond Street / Bathrust Street": {latitude: 43.646464, longitude: -79.403705}
   },
+  // Queen Street, facing Nathan-Philipps Square, Toronto's Old City Hall, and the CF Toronto Eaton Centre.
   "Queen Street" : {
     "Queen Street / Sherbourne Street": {latitude: 43.654531, longitude: -79.369460},
     "Queen Street / Jarvis Street": {latitude: 43.653719, longitude: -79.373199},
@@ -98,6 +117,7 @@ const MAJOR_INTERSECTIONS = {
     "Queen Street / Spadina Avenue": {latitude: 43.648769, longitude: -79.396404},
     "Queen Street / Bathrust Street": {latitude: 43.647191, longitude: -79.404008}
   },
+  // Dundas Street, facing Yonge-Dundas Square, Toronto Coach Terminal, and the Art Gallery of Ontario.
   "Dundas Street" : {
     "Dundas Street / Sherbourne Street": {latitude: 43.658290, longitude: -79.370996},
     "Dundas Street / Jarvis Street": {latitude: 43.657038, longitude: -79.374544},
@@ -108,6 +128,7 @@ const MAJOR_INTERSECTIONS = {
     "Dundas Street / Spadina Avenue": {latitude: 43.652926, longitude: -79.398003},
     "Dundas Street / Bathrust Street": {latitude: 43.652292, longitude: -79.406013}
   },
+  // College / Carlton Street, on the border of the University of Toronto's St. George Campus.
   "College / Carlton Street" : {
     "Carlton Street / Sherbourne Street": {latitude: 43.663184, longitude: -79.373071},
     "Carlton Street / Jarvis Street": {latitude: 43.662404, longitude: -79.376690},
@@ -119,9 +140,14 @@ const MAJOR_INTERSECTIONS = {
   },
 };
 
+// Dictionary of some of TTC's subway stations (Line 1) where the user can choose one at their
+// convenience. These hold actual coordinates to respect the Google Maps API and the functions
+// in the backend that calculate the distance between two points.
 const SUBWAY_STATIONS = {
+  // Most South station of the line, and central transit hub.
   "Union": {latitude: 43.6452239, longitude: -79.380861},
 
+  // Right side of the U TTC Subway Line 1 makes.
   "King": {latitude: 43.6490598, longitude: -79.3781075},
   "Queen": {latitude: 43.652737, longitude: -79.379616},
   "Dundas": {latitude: 43.6562811, longitude: -79.380459},
@@ -129,6 +155,7 @@ const SUBWAY_STATIONS = {
   "Wellesley": {latitude: 43.665653, longitude: -79.383804},
   "Bloor-Yonge": {latitude: 43.6709058, longitude: -79.3856372},
 
+  // Left side of the U TTC Subway Line 1 makes
   "St Andrew": {latitude: 43.6475248, longitude: -79.3844866},
   "Osgoode": {latitude: 43.6506146, longitude: -79.3868315},
   "St Patrick": {latitude: 43.6548307, longitude: -79.3883485},
@@ -139,6 +166,9 @@ const SUBWAY_STATIONS = {
   "Spadina": {latitude: 43.6703608, longitude: -79.4053173},
 };
 
+// Dictionary of some of Toronto's attractions where the user can choose one at their
+// convenience. These hold actual coordinates to respect the Google Maps API and the functions
+// in the backend that calculate the distance between two points.
 const LANDMARKS = {
   "CN Tower / Ripley's Aquarium of Canada / Rogers Centre" : {latitude: 43.6425723, longitude: -79.3870772},
   "Air Canada Centre" : {latitude: 43.6434301, longitude: -79.3878058},
@@ -157,7 +187,16 @@ const LANDMARKS = {
   "Roundhouse Park / Steam Whistle Brewery / The Rec Room" : {latitude: 43.6410088, longitude: -79.3861289},
 };
 
+// Creates an object holding reference values and a length to represent the selected preferences the user
+// makes in terms of food, drinks, and condiments.
+function makeEmptyPreferences() {
+  // Insight from https://stackoverflow.com/questions/6622224/jquery-removes-empty-arrays-when-sending
+  return {values: [], length: 0};
+}
 
+// Creates the head HTML of the content pane that will be displayed when the user clicks on a marker on
+// the Google Maps widget in the frontend. A lot of string interpolation is used here to place
+// the data the current stand holds in the respective elements and attributes.
 function contentStringHead(currentHotDogStand) {
   var contentStringHead = '<div id="content" style="height: 260px; width: 350px;">'+
          '<h4 id="firstHeading" class="firstHeading">' + currentHotDogStand.nameOfStand +
@@ -176,32 +215,47 @@ function contentStringHead(currentHotDogStand) {
 }
 
 
-
+// Creates the HTML for all of the available foods of a hot dog stand to be displayed in a
+// Google Maps marker info content pane. This is done using a table.
 function contentStringForAvailableFoods(standIndex, availableFoodPrices, allFoodInDatabase) {
+  // Create the starting content.
   var contentStringForFoods = '<h5>Available Foods: </h5>' +
     '<table>' +
-    '<tr><th>Side / Dish</th><th>Price</th></tr>';;
+    '<tr><th>Side / Dish</th><th>Price</th></tr>';
+
+  // Cycle through all the available foods the current stand has and write both the name of the
+  // food and its corresponding price in a table row.
   for (var foodIndex = 0; foodIndex < availableFoodPrices[standIndex].length; foodIndex++) {
     var currentFoodPriceElement = availableFoodPrices[standIndex][foodIndex];
     contentStringForFoods += '<tr><td>' + allFoodInDatabase[currentFoodPriceElement.food_id - 1].foodName + '</td><td>$' +
       parseFloat(currentFoodPriceElement.price).toFixed(2) + '</td></tr>';
   }
+
+  // End the content with the ending tag.
   contentStringForFoods += '</table>';
 
   return contentStringForFoods;
 }
 
 
-
+// Creates the HTML for all of the available drinks of a hot dog stand to be displayed in a
+// Google Maps marker info content pane. This is done using a table.
 function contentStringForAvailableDrinks(standIndex, availableDrinkPrices, allDrinksInDatabase) {
+
+  // Create the starting content.
   var contentStringForDrinks = '<h5>Available Drinks: </h5>' +
   '<table>' +
   '<tr><th>Drink</th><th>Price</th></tr>';
+
+  // Cycle through all the available drinks the current stand has and write both the name of the
+  // drink and its corresponding price in a table row.
   for (var drinkIndex = 0; drinkIndex < availableDrinkPrices[standIndex].length; drinkIndex++) {
     var currentDrinkPriceElement = availableDrinkPrices[standIndex][drinkIndex];
     contentStringForDrinks += '<tr><td>' + allDrinksInDatabase[currentDrinkPriceElement.drink_id - 1].drinkName + '</td><td>$' +
       parseFloat(currentDrinkPriceElement.price).toFixed(2) + '</td></tr>';
   }
+
+  // End the content with the ending tag.
   contentStringForDrinks += '</table>'
 
   return contentStringForDrinks;
@@ -209,17 +263,23 @@ function contentStringForAvailableDrinks(standIndex, availableDrinkPrices, allDr
 
 
 
-
+// Creates the HTML for all of the available condiments of a hot dog stand to be displayed in a
+// Google Maps marker info content pane.
 function contentStringForAvailableCondiments(standIndex, availableCondiments, allCondimentsInDatabase) {
+
+  // Create the starting content.
   var contentStringForCondiments = '<h5>Available Condiments: </h5>' +
   '<p>';
+
+  // Loop through all the condiments and append them to the main string that's going to be loaded
+  // in the paragraph element in such a way that it's going to make it appear natural.
   var currentCondimentString = '';
   for (var condimentIndex = 0; condimentIndex < availableCondiments[standIndex].length; condimentIndex++) {
     var currentCondimentElement = availableCondiments[standIndex][condimentIndex];
 
     currentCondimentString = allCondimentsInDatabase[currentCondimentElement.condiment_id - 1].nameOfCondiment;
 
-    if (condimentIndex > 0)
+    if (condimentIndex > 0) // Make the sentence more friendly by lowercasing the condiment string as needed.
       currentCondimentString = currentCondimentString.toLowerCase();
 
     contentStringForCondiments += currentCondimentString;
@@ -227,23 +287,31 @@ function contentStringForAvailableCondiments(standIndex, availableCondiments, al
     if (condimentIndex < availableCondiments[standIndex].length - 1)
       contentStringForCondiments += ', ';
   }
+
+  // End the content with the ending tag.
   contentStringForCondiments += '</p>';
 
   return contentStringForCondiments;
 }
 
 
-
+// Creates the tail HTML of the content pane that will be displayed when the user clicks on a marker
+// in the Google Maps widget. This string holds any additional options the hot dog stand can have
+// for the customer to choose, such as a type of bun or a spice.
 function contentStringTail(currentHotDogStand) {
   var contentStringTail = '';
 
+  // If there are any additional options in the dictionary, create the string for them.
   if (Object.keys(currentHotDogStand.additionalOptions).length != 0) {
     contentStringTail = '<h5>Additional Options: </h5>';
 
     var additionalOption = '';
 
+    // Loop through all the lists this array holds.
     for (currentKey in currentHotDogStand.additionalOptions) {
       contentStringTail += '<h6>' + currentKey + ':</h6><p>';
+
+      // Loop through all the options that exist in this current array.
       for (var elementIndex = 0; elementIndex < currentHotDogStand.additionalOptions[currentKey].length; elementIndex++) {
 
         additionalOption = currentHotDogStand.additionalOptions[currentKey][elementIndex];
@@ -257,25 +325,32 @@ function contentStringTail(currentHotDogStand) {
           contentStringTail += ', ';
       }
 
+      // Finish off the current array with the ending paragraph tag.
       contentStringTail += '</p>';
     }
   }
 
+  // Complete the content string with the ending div tags.
+  contentStringTail += '</div></div>';
   return contentStringTail;
 }
 
+// Initializes the Google Maps widget
 function initMap(searchResultsData) {
 
+  // Do not create the map data if the search results dictionary does not exist; a safety precaution.
   if (searchResultsData == null)
     return;
 
-  var uluru = {lat: 43.6503521, lng: -79.3837953};
+  // Create the Google Maps widget using Google's own scripts, and set the center.
   var mapCenter = {lat: 43.642566, lng: -79.387056};
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     center: mapCenter
   });
 
+  // Create a marker and display it on the Google Maps widget to remind the user where they are
+  // searching a hot dog stand from.
   var referenceCenter = {lat: searchResultsData.referenceLatitude,
     lng: searchResultsData.referenceLongitude};
 
@@ -285,6 +360,9 @@ function initMap(searchResultsData) {
     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
   });
 
+
+  // Display a green circle to indicate the range if the user indicates they want a stand
+  // that's within a certain radius from where they are.
   if (searchResultsData.distanceRange != 0) {
     var referenceCircle = new google.maps.Circle({
       strokeColor: '#00DD00',
@@ -298,22 +376,24 @@ function initMap(searchResultsData) {
     });
   }
 
+  // Prep the elements for loading and rendering directions on the map widget.
   var directionsService = new google.maps.DirectionsService();
   var directionsDisplay = new google.maps.DirectionsRenderer();
 
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
+
+
   var hotDogStandsToDisplay = [];
   var hotDogStandsInformationWindows = [];
 
-  //console.log(searchResultsData.resultingHotDogStands);
-
+  // Loop through all of the stands the search algorithm in the backend has found.
   for (var standIndex = 0; standIndex < searchResultsData.resultingHotDogStands.length; standIndex++) {
     var currentHotDogStand = searchResultsData.resultingHotDogStands[standIndex];
-    //console.log(currentHotDogStand);
     var standLocation = {lat: parseFloat(currentHotDogStand.latitude), lng: parseFloat(currentHotDogStand.longitude)}
 
+    // Create the corresponding marker on the map to show where the stand is located.
     hotDogStandsToDisplay.push(new google.maps.Marker({
       position: standLocation,
       map: map,
@@ -322,6 +402,7 @@ function initMap(searchResultsData) {
     }));
 
 
+    // Put together the content that will be displayed in an information window when the user clicks on a marker.
     var contentStringForFoods = contentStringForAvailableFoods(standIndex, searchResultsData.availableFoodPrices,
       searchResultsData.allFood);
 
@@ -332,9 +413,9 @@ function initMap(searchResultsData) {
       searchResultsData.allCondiments);
 
     var infoWindowContent = contentStringHead(currentHotDogStand) + contentStringForFoods + contentStringForDrinks +
-      contentStringForCondiments + contentStringTail(currentHotDogStand) + '</div></div>'
+      contentStringForCondiments + contentStringTail(currentHotDogStand);
 
-
+    // Create the window.
     var newInfoWindow = new google.maps.InfoWindow({
       content: infoWindowContent,
       maxHeight: 300
@@ -342,19 +423,25 @@ function initMap(searchResultsData) {
 
     hotDogStandsInformationWindows.push(newInfoWindow);
 
+
+    // Add four listeners to the Google Maps widget to respond to different events for each hot dog stand.
     google.maps.event.addListener(newInfoWindow, 'domready', function(){
+      // Load content pane listener.
       loadDirectionListener(directionsService, directionsDisplay, referenceCenter);
     });
 
     google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'click', function() {
+      // Open the information window on the marker the user has clicked.
       hotDogStandsInformationWindows[this.index].open(map, hotDogStandsToDisplay[this.index]);
     });
 
     google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'mouseover', function() {
+      // Make the marker bounce when the user hovers the mouse pointer over it.
       hotDogStandsToDisplay[this.index].setAnimation(google.maps.Animation.BOUNCE);
     });
 
     google.maps.event.addListener(hotDogStandsToDisplay[standIndex], 'mouseout', function() {
+      // Stop the bouncing when the user's pointer moves out of the marker.
       hotDogStandsToDisplay[this.index].setAnimation(null);
     });
   }
@@ -362,7 +449,7 @@ function initMap(searchResultsData) {
 
 
 
-
+// Loads all the different distance ranges that exist in the metric system.
 function loadMetricValues() {
   $.each(METRIC_VALUES, function(key,value) {
     $("#distanceValues").append($("<option></option>")
@@ -370,9 +457,13 @@ function loadMetricValues() {
   });
 }
 
+// Loads all of the major intersections that exist in Toronto's core as options in a combo box.
+// (or a dropdown in the terms of Twitter Bootstrap)
 function loadMajorIntersections() {
   var $majorIntersections = $("#majorIntersections");
   $.each(MAJOR_INTERSECTIONS, function(key,value) {
+    // Organize the list as west-east street groups with their north-south counterparts,
+    // giving each group a header to stand out in the frontend for the user's convenience.
     var $optionGroup = $("<optgroup></optgroup>").attr("label", key)
     $majorIntersections.append($optionGroup);
     $.each(value, function(intersection, coordinates) {
@@ -382,6 +473,8 @@ function loadMajorIntersections() {
   });
 }
 
+// Loads the TTC subway stations that exist in Toronto's core as options in a combo box.
+// (or a dropdown in the terms of Twitter Bootstrap)
 function loadSubwayStations() {
   var $subwayStations = $("#subwayStations");
   $.each(SUBWAY_STATIONS, function(key,value) {
@@ -390,6 +483,8 @@ function loadSubwayStations() {
     });
 }
 
+// Loads the landmarks that exist in Toronto's core as options in a combo box.
+// (or a dropdown in the terms of Twitter Bootstrap)
 function loadLandmarks() {
   var $landmarks = $("#landmarks");
   $.each(LANDMARKS, function(key,value) {
@@ -398,6 +493,8 @@ function loadLandmarks() {
     });
 }
 
+// Loads two listeners for the two radio buttons that the user can use to either include a price
+// range or not for the individual items. These simply set the 'disabled' attribute of the elements.
 function loadRadioButtonListenersForPriceRange() {
   $("#priceRangeSpecified_priceRangeYes").click(function() {
     $("#minimumPrice").prop('disabled', false);
@@ -408,9 +505,12 @@ function loadRadioButtonListenersForPriceRange() {
     $("#minimumPrice").prop('disabled', true);
     $("#maximumPrice").prop('disabled', true);
   });
-
 }
 
+
+// Loads the listeners for enabling / disabling the different combo boxes (or dropdowns)
+// the user has on the interface to select a location they want to find a hot dog stand
+// relative to.
 function loadRadioButtonListenersForLocationSelection () {
   $("#locationReferenceSelection").change(function() {
 
@@ -439,16 +539,17 @@ function loadRadioButtonListenersForLocationSelection () {
   });
 }
 
+// Loads a change listener for the two radio buttons that correspond to the distance unit
+// used in the radius the user specifies.
 function loadChangeListenerForDistanceUnit() {
   $("input:radio[name=distanceUnit]").change(function() {
-    console.log("Listener called");
+
+    // Empty out all the options that exist in the distanceValues combo box / drop down.
     $("#distanceValues").empty();
 
+    // Then append options for the unit the customer asks for.
     if ($("#distanceUnit_metric").is(':checked'))
-      $.each(METRIC_VALUES, function(key,value) {
-        $("#distanceValues").append($("<option></option>")
-          .attr("data-value", value).text(key));
-        });
+      loadMetricValues();
     else
       $.each(IMPERIAL_VALUES, function(key,value) {
         $("#distanceValues").append($("<option></option>")
@@ -458,40 +559,31 @@ function loadChangeListenerForDistanceUnit() {
 }
 
 
-
+// Loads the click listener for the submit button the user presses on to send their preferences.
 function loadSubmitButtonListener() {
   $("#findHotDogStands").click(function() {
 
-    $(this).prop('disabled', true);
-    $(this).html("<span class='searchFormHeaders pleaseWaitColor'>Searching; please wait...</span>");
 
-    // Compile the data together
+
+    // Compile the data together into a single dictionary object.
     var searchCriteria = {};
 
-    // Position Reference Type
-    if ($("#locationSelection_majorIntersection").is(':checked')) {
-      searchCriteria.positionReferenceType = "MI";
+    // Get the user's current position based on their selected option for location.
+    if ($("#locationSelection_majorIntersection").is(':checked')) {     // User selected major intersection
       searchCriteria.latitude = $("#majorIntersections option:selected").attr("data-latitude");
       searchCriteria.longitude = $("#majorIntersections option:selected").attr("data-longitude");
-      //searchCriteria.latitude = $("#majorIntersections");
-    }
-    else if ($("#locationSelection_subwayStation").is(':checked')) {
-      searchCriteria.positionReferenceType = "SS";
+    } else if ($("#locationSelection_subwayStation").is(':checked')) {  // User selected subway station
       searchCriteria.latitude = $("#subwayStations option:selected").attr("data-latitude");
       searchCriteria.longitude = $("#subwayStations option:selected").attr("data-longitude");
-    }
-    else if ($("#locationSelection_landmarks").is(':checked')) {
-      searchCriteria.positionReferenceType = "LM";
+    } else if ($("#locationSelection_landmarks").is(':checked')) {      // User selected landmarks
       searchCriteria.latitude = $("#landmarks option:selected").attr("data-latitude");
       searchCriteria.longitude = $("#landmarks option:selected").attr("data-longitude");
-    }
-    else {
-      searchCriteria.positionReferenceType = "LL";
+    } else {                                                            // User selected latitude / longitude
       searchCriteria.latitude = $("#latitude").val();
       searchCriteria.longitude = $("#longitude").val();
     }
 
-    // Distance Range
+    // Get the distance unit the user has asked for, and the range to find a stand that's within.
     if ($("#distanceUnit_metric").is(':checked'))
       searchCriteria.distanceUnit = "KM";
     else
@@ -500,76 +592,103 @@ function loadSubmitButtonListener() {
     searchCriteria.distanceRange = $("#distanceValues").find('option:selected').attr("data-value");
 
 
-    // Price Range
+    // Get the price range the user has specified if they have done so. (This is only applied when)
+    // the user selects individual items in the food and drink panes.
     searchCriteria.isAPriceRangeSpecified = $("#priceRangeSpecified_priceRangeYes").is(':checked');
+
+    if (searchCriteria.isAPriceRangeSpecified) {
+
+      var minimumPrice = $("#minimumPrice").val();
+      var maximumPrice = $("#maximumPrice").val();
+
+      if (parseFloat(minimumPrice).toFixed(2) > parseFloat(maximumPrice).toFixed(2)) {
+        alert("The minimum price is greater than the maximum price. Please fix the error and try again.");
+        return;
+      }
+
       searchCriteria.minimumItemPrice = $("#minimumPrice").val();
       searchCriteria.maximumItemPrice = $("#maximumPrice").val();
     }
 
-    // Cycle through all the condiment selections
-    // Insight from https://stackoverflow.com/questions/6622224/jquery-removes-empty-arrays-when-sending
-    var selectedPreferencesObject = {
-      values: [],
-      length: 0
-    };
 
-    // Insight from https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
-    searchCriteria.selectedFoods = jQuery.extend(true, {}, selectedPreferencesObject);
+    // Cycle through all the condiment selections and add them to the foods container.
+    searchCriteria.selectedFoods = makeEmptyPreferences();
 
     $('#food input:checked').each(function() {
       searchCriteria.selectedFoods.values.push($(this).data().foodIndex);
       searchCriteria.selectedFoods.length++;
     });
 
-    // Cycle through all the drink selections
-    searchCriteria.selectedDrinks = jQuery.extend(true, {}, selectedPreferencesObject);
+
+    // Cycle through all the drink selections and add them to the drinks container.
+    searchCriteria.selectedDrinks = makeEmptyPreferences();
 
     $('#drinks input:checked').each(function() {
       searchCriteria.selectedDrinks.values.push($(this).data().drinkIndex);
       searchCriteria.selectedDrinks.length++;
     });
 
-    // Cycle through all the condiment selections
-    searchCriteria.selectedCondiments = jQuery.extend(true, {}, selectedPreferencesObject);
+
+    // Cycle through all the condiment selections and add them to the condiments container.
+    searchCriteria.selectedCondiments = makeEmptyPreferences();
 
     $('#condiments input:checked').each(function() {
       searchCriteria.selectedCondiments.values.push($(this).data().condimentIndex);
       searchCriteria.selectedCondiments.length++;
     });
 
+    // Let the user know that searching is currently in progress.
+    $(this).prop('disabled', true);
+    $(this).html("<span class='searchFormHeaders pleaseWaitColor'>Searching; please wait...</span>");
 
+
+    // Finally, issue a POST request to the server to have it process the search query based on these
+    // conditional parameters the user has specified.
     $.ajax({
       method: "POST",
       url: "customers/search",
       headers: {
+        // Make this request valid to the server as it's sensitive to cross-site request forgery.
         'X-CSRF-Token': $("#authenticity_token").val()
       },
-      data: searchCriteria,
-      dataType: "json",
+      data: searchCriteria,           // Set the data content to the search criteria object
+      dataType: "json",               // Make the data exchange format as a JSON string.
       success: function(data) {
+        // Upon a successful HTTP response, check to see how many resulting stands exist.
         if (data.numberOfResults > 0)
+          // If there are resulting stands, load the search results template by a GET request.
           $.get("customers/searchResults", function( renderedHtml ) {
-            $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
             $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
             initMap(data);
           });
         else
+          // Otherwise, load the 'No Search Results' template by a GET request,
           $.get("customers/noSearchResults", function( renderedHtml ) {
-            $('html,body').scrollTop(0);
             $("#mainDiv").html(renderedHtml);
           });
+
+          // Scroll to the top of the page.
+          $('html,body').scrollTop(0);
       }
     });
   });
 }
 
+// Loads a click listener to process directions the Google Maps widget will provide to the
+// user on request.
 function loadDirectionListener(directionsService, directionsDisplay, startPoint) {
   $(".directionsLink").on('click', function(){
+
+
+
+    // Get the hot dog stand's index in finding the coordinates Google Maps will
+    // process directions for.
     var hotDogStandIndex = $(this).attr("data-hot-dog-stand-index");
 
-    var desiredTravelMode;
 
+    // Get the travel mode the user is asking for.
+    var desiredTravelMode;
     if ($("#travelModeSelection_drivingTravelMode").is(':checked'))
       desiredTravelMode = google.maps.DirectionsTravelMode.DRIVING;
     else if ($("#travelModeSelection_publicTransitTravelMode").is(':checked'))
@@ -579,26 +698,34 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
     else
       desiredTravelMode = google.maps.DirectionsTravelMode.WALKING;
 
-    var desiredDistanceUnits;
+
+    // Get the unit of distance the user desires from the interface.
+    var desiredDistanceUnit;
 
     if ($("#travelDistanceUnit_metric").is(':checked'))
-      desiredDistanceUnits = google.maps.UnitSystem.METRIC;
+      desiredDistanceUnit = google.maps.UnitSystem.METRIC;
     else
-      desiredDistanceUnits = google.maps.UnitSystem.IMPERIAL;
+      desiredDistanceUnit = google.maps.UnitSystem.IMPERIAL;
 
+
+    // Now put together the directions request object and have the directions service process the
+    // request for directions.
     var directionsRequest = {
       origin: new google.maps.LatLng(startPoint.lat, startPoint.lng),
       destination: new google.maps.LatLng($(this).attr("data-latitude"), $(this).attr("data-longitude")),
       travelMode: desiredTravelMode,
-      unitSystem: desiredDistanceUnits
+      unitSystem: desiredDistanceUnit
     };
 
-    $("html, body").scrollTop($("#directionsPanel").offset().top);
 
+    // Let the user know that navigation route and directions are being calculated.
+    $("html, body").scrollTop($("#directionsPanel").offset().top);
     $("#directionsPanel").html("<span class='heavyText'>Calculating navigation route and directions... Please wait</span>");
 
     directionsService.route(directionsRequest, function(response, status) {
 
+      // Upon a response, empty the directions panel and add the appropriate content depending on
+      // the status the response holds.
       $("#directionsPanel").html("");
 
       if (status == google.maps.DirectionsStatus.OK) {
@@ -611,6 +738,7 @@ function loadDirectionListener(directionsService, directionsDisplay, startPoint)
   });
 }
 
+// Initializes all the listeners by calling the functions that load the independent listeners separately.
 function initializeListenersAndValues() {
   loadMetricValues();
   loadMajorIntersections();
@@ -623,23 +751,24 @@ function initializeListenersAndValues() {
   $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" });
 }
 
+
+// Function pre-loading once the full HtML page is ready.
 $(function() {
 
-  initializeListenersAndValues();
+  initializeListenersAndValues();       // Load the listeners.
 
-  $("body").on('click', '#goBackSearchEnginePageLink', function (){
-    $("#goBackSearchEnginePageLink").addClass("text-muted");
-    $("#goBackSearchEnginePageLink").html("Loading, please wait...");
-    $("#goBackSearchEnginePageLink").removeAttr('id');
+  // Default click listener for the link that goes back to the search engine.
+  $("body").on('click', '#goBackSearchEnginePaneLink', function (){
+
+    // Let the user know that the search pane is being loaded again.
+    $("#goBackSearchEnginePaneLink").addClass("text-muted");
+    $("#goBackSearchEnginePaneLink").html("Loading, please wait...");
+    $("#goBackSearchEnginePaneLink").removeAttr('id');
 
     $.get("customers/main", function( renderedHtml ) {
-
       var $replacementElement = $("<output>").append($.parseHTML(renderedHtml)).find("div#mainDiv")[0];
-
       $("#mainDiv").html($replacementElement.innerHTML);
       initializeListenersAndValues();
-
     });
   });
-
 })
