@@ -2,8 +2,14 @@
     ToronHot Dog
     Data Models - Hot Dog Stand
 
+    This entity model with various dependent relationships replicates a real-life
+    hot dog stand, with what foods are available, what are the respective prices,
+    what drinks are available, what are the prices, what condiments are available,
+    and some metadata including name of the stand, location, customer rating, and
+    so on. Some stands may have additional options for the customers.
+
     Start Date: March 1, 2018
-    End Date: March 4, 2018
+    End Date: April 10, 2018
 
     File Name: hot_dog_stand.rb
 
@@ -14,8 +20,6 @@ class HotDogStand < ApplicationRecord
 
   # One-to-many relationship because a hot dog stand has multiple foods the user can choose.
   has_many :foods, class_name: Food
-
-  has_many :food_price, class_name: FoodPrice
 
   # One-to-many relationship because a hot dog stand has multiple drinks the user can choose.
   has_many :drinks, class_name: Drink

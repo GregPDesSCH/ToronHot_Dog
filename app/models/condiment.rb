@@ -2,6 +2,10 @@
     ToronHot Dog
     Data Models - Condiment
 
+    This entity data model represents a condiment, where it has a name, which
+    is a string.
+
+    VERSION 1.0
     Start Date: March 1, 2018
     End Date: March 4, 2018
 
@@ -11,6 +15,6 @@
 =end
 
 class Condiment < ApplicationRecord
-  # Make sure the name of the condiment is non-null.
+  # Makes sure the name of the condiment is non-null.
   validates :nameOfCondiment, presence: true
 end

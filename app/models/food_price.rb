@@ -2,6 +2,9 @@
     ToronHot Dog
     Data Models - Food Price
 
+    This relationship model allows the hot dog stands to show what foods they have
+    available and how much the customer has to pay for one serving.
+
     Start Date: March 1, 2018
     End Date: March 4, 2018
 

@@ -2,6 +2,9 @@
     ToronHot Dog
     Data Models - Drink
 
+    This entity data model represents a drink, where it has a name, which
+    is a string.
+
     Start Date: March 1, 2018
     End Date: March 4, 2018
 

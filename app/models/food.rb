@@ -1,9 +1,12 @@
 =begin
     ToronHot Dog
-    Data Models - Hot Dog Stand
+    Data Models - Food
+
+    This entity data model represents a snack or meal, where it has a name, which
+    is a string.
 
     Start Date: March 1, 2018
-    End Date: March 4, 2018
+    End Date: April 10, 2018
 
     File Name: food.rb
 
@@ -11,7 +14,6 @@
 =end
 
 class Food < ApplicationRecord
-  has_many :food_price
   # Make sure the name of the food is non-null.
   validates :foodName, presence: true
 end
