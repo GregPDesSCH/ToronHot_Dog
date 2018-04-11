@@ -1,16 +1,20 @@
+=begin
+  ToronHot Dog
+  Database Table and Data Creation - Mock Data
+
+  This migrate file is where all the mock data is created for the different data models that exist
+  in the database.
+
+  Start Date: March 4, 2018
+  End Date: April 10, 2018
+
+  File Name: 8_create_mock_data.rb
+
+  Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
+=end
+
 class CreateMockData < ActiveRecord::Migration[5.1]
   def change
-    #stand = HotDogStand.new
-
-    #stand.nameOfStand = "Patrick's Big Old Sausages"
-    #stand.latitude = 43.656323
-    #stand.longitude = -79.40776
-    #stand.customerRating = 3.69
-    #stand.additionalOptions = { \
-    #      "bun" => ["White", "Pretzel", "Garlic", "Multigrain", "Italian"] \
-    #  }
-    #stand.actualAddress = "479 Bathrust Street"
-    #stand.save!
 
     # Creating all the mock hot dog stands for the project
     hotDogStands = []
@@ -50,6 +54,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
       customerRating: 4.35, additionalOptions: {}, actualAddress: "128 Queen Street West"
 
 
+
     # Creating all the mock foods for the project
     available_foods = []
     available_foods[0] = Food.create! foodName: "Small french fries"
@@ -76,6 +81,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     available_foods[17] = Food.create! foodName: "Pork Sausage"
 
 
+
     # Creating all the mock drinks for the project
     available_drinks = []
     available_drinks[0] = Drink.create! drinkName: "Naya Natural Spring Water (Bottled)"
@@ -89,6 +95,7 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     available_drinks[8] = Drink.create! drinkName: "Canada Dry"
     available_drinks[9] = Drink.create! drinkName: "Molson"
     available_drinks[10] = Drink.create! drinkName: "Coors Light"
+
 
 
     # Creating all the mock condiments for the project
@@ -161,11 +168,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
 
 
-
-
-
-
-
     ###
     # 2. Davio Dave Hot Dogs
     # customerRating: 2.31
@@ -181,13 +183,11 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[1].id, food_id: available_foods[12].id, price: 2.25
     FoodPrice.create! hot_dog_stands_id: hotDogStands[1].id, food_id: available_foods[13].id, price: 2.25
 
-
     # Drinks
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[1].id, drink_id: available_drinks[0].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[1].id, drink_id: available_drinks[3].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[1].id, drink_id: available_drinks[5].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[1].id, drink_id: available_drinks[6].id, price: 1.25
-
 
     # Condiments
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[1].id, condiment_id: available_condiments[0].id
@@ -197,12 +197,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[1].id, condiment_id: available_condiments[7].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[1].id, condiment_id: available_condiments[9].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[1].id, condiment_id: available_condiments[16].id
-
-
-
-
-
-
 
 
     ###
@@ -220,7 +214,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[9].id, price: 2.25
     FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[12].id, price: 2.25
     FoodPrice.create! hot_dog_stands_id: hotDogStands[2].id, food_id: available_foods[15].id, price: 2.25
-
 
     # Drinks
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[2].id, drink_id: available_drinks[2].id, price: 1.25
@@ -242,11 +235,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
 
 
-
-
-
-
-
     ###
     # 4. Billy Jean's Jumbos
     # customerRating: 4.21
@@ -262,7 +250,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[12].id, price: 13.00
     FoodPrice.create! hot_dog_stands_id: hotDogStands[3].id, food_id: available_foods[15].id, price: 16.00
 
-
     # Drinks
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[3].id, drink_id: available_drinks[0].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[3].id, drink_id: available_drinks[2].id, price: 1.25
@@ -272,7 +259,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[3].id, drink_id: available_drinks[8].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[3].id, drink_id: available_drinks[9].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[3].id, drink_id: available_drinks[10].id, price: 1.25
-
 
     # Condiments
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[3].id, condiment_id: available_condiments[2].id
@@ -285,10 +271,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[3].id, condiment_id: available_condiments[17].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[3].id, condiment_id: available_condiments[18].id
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[3].id, condiment_id: available_condiments[19].id
-
-
-
-
 
 
 
@@ -317,8 +299,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[16].id, price: 5.95
     FoodPrice.create! hot_dog_stands_id: hotDogStands[4].id, food_id: available_foods[17].id, price: 5.95
 
-
-
     # Drinks
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[4].id, drink_id: available_drinks[0].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[4].id, drink_id: available_drinks[1].id, price: 1.25
@@ -331,7 +311,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[4].id, drink_id: available_drinks[8].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[4].id, drink_id: available_drinks[9].id, price: 1.25
     DrinkPrice.create! hot_dog_stands_id: hotDogStands[4].id, drink_id: available_drinks[10].id, price: 1.25
-
 
     # Condiments
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[4].id, condiment_id: available_condiments[0].id
@@ -362,11 +341,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
 
 
-
-
-
-
-
     ###
     # 6. Smoky Frankie Franks
     ###
@@ -384,10 +358,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
 
 
-
-
-
-
     ###
     # 7. Sighter Dog
     ###
@@ -402,9 +372,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
 
 
-
-
-
     ###
     # 8. Margaret's Franks
     ###
@@ -416,10 +383,6 @@ class CreateMockData < ActiveRecord::Migration[5.1]
 
     # Condiments
     AvailableCondiment.create! hot_dog_stands_id: hotDogStands[7].id, condiment_id: available_condiments[0].id
-
-
-
-
 
 
 
