@@ -2,55 +2,65 @@
     ToronHot Dog
     Frontend - Stylesheet
 
+    This SCSS file provides some custom styling and gives the app a unique look and feel.
+
+    VERSION 1.0
     Start Date: April 7, 2018
-    End Date: April , 2018
+    End Date: April 10, 2018
 
     File Name: customers.scss
 
     Original Source Code © 2018 Gregory Desrosiers. All rights reserved.
 */
 
+// Function for setting the font weight.
 @mixin set-font-weight($fontWeight) {
   font-weight: $fontWeight;
 }
 
+// Function for setting the font color.
 @mixin set-font-color($fontColor) {
   color: $fontColor;
 }
 
+// Function for setting the cursor.
 @mixin set-cursor($cursor) {
   cursor: $cursor;
 }
 
+// Function for setting both font weight and cursor in one swoop.
 @mixin set-font-weight-and-cursor($fontWeight, $cursor) {
   @include set-font-weight($fontWeight);
   @include set-cursor($cursor);
 }
 
+// Sets the color of the header string "Toron" to red to represent ketchup on hot dogs.
 #torontoHotDogLeftSide {
   @include set-font-color(#F00);
 }
 
+// Sets the color of the header string "Hot" to yellow to represent mustard on hot dogs.
 #torontoHotDogCenterSide {
   @include set-font-color(#DD0);
 }
 
+// Sets the color of the header string "Dog" to green to represent relish on hot dogs.
 #torontoHotDogRightSide {
   @include set-font-color(#090);
 }
 
+// Adds left and right margins.
 #mainDiv {
   margin: 1.5em 0 1.5em 0;
 }
 
+// Apply boldface to text that deserves to have a heavy font weight.
 .heavyText {
   @include set-font-weight(600);
 }
 
-.pleaseWaitColor {
-  @include set-font-color(#000);
-}
-
+// Have the directions link in the info windows on the Google Maps widget appear red,
+// but bold and purple when the user hovers the mouse pointer over it.
 .directionsLink {
   @include set-font-color(#f00);
 }
@@ -60,10 +70,13 @@
   @include set-font-weight-and-cursor(600, pointer);
 }
 
+// Give ample space around the blocks that make up the search criteria.
 .searchCriteriaBlock {
   margin: 3em 0.5em 3em 0.5em;
 }
 
+// Make both radio and checkbox labels be bold when the user hovers the mouse over them
+// to indicate that they can be clicked on.
 input[type="radio"]+label:hover {
   @include set-font-weight-and-cursor(600, pointer);
 }
@@ -72,8 +85,10 @@ input[type="checkbox"]+label:hover {
   @include set-font-weight-and-cursor(600, pointer);
 }
 
+// Give the "Go Back to Search" link a purple color and bold it when the user hovers
+// over it.
 #goBackSearchEnginePaneLink {
-  color: #aa00aa;
+  color: #a0a;
 }
 
 #goBackSearchEnginePaneLink:hover {
