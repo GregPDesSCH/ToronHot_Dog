@@ -4,13 +4,13 @@
 **Created and Developed by Gregory P. Desrosiers (GregPDesSCH)**  
 *University of Waterloo, Software Engineering 2019*
 
-VERSION 1.0
+VERSION 1.0  
 Start Date: January 27, 2018  
-End Date:
+End Date: April 11, 2018
 
-© 2018 Gregory Desrosiers. All rights reserved.
+Project License Pending
 
-
+Source Code and Design © 2018 Gregory Desrosiers. All rights reserved.
 
 
 ## About
