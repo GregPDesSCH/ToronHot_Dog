@@ -17,7 +17,13 @@ Source Code and Design © 2018 Gregory Desrosiers. All rights reserved.
 
 This is a conceptual single page website application where tourists all over the world, and the residents of Toronto, can use it to help them look for hot dog stands in Toronto's core. The entire city of Toronto is large as a whole; there are so many places you can go. But what if you get lost somewhere and you want to grab a hot dog or a snack from a street stand along the way?
 
-This web application is designed to search for hot dog stands within the entertainment and business districts of Toronto, with the option to include your own preferences. These are how far you want to reach maximum from a reference point, how much you want to pay, what foods you want, what drinks you want, and what condiments you want. The resulting hot dog stands are displayed on a map with Google Maps. You can select your stand, review the menu for your reference, and ask for directions on getting there from where you are.
+This web application is designed to search for hot dog stands within the entertainment and business districts of Toronto, with the option to include your own preferences. These are how far you want to reach maximum from a reference point, how much you want to pay, what foods you want, what drinks you want, and what condiments you want.
+
+![Search Pane](search.png)
+
+The resulting hot dog stands are displayed on a map with Google Maps. You can select your stand, review the menu for your reference, and ask for directions on getting there from where you are.
+
+![Results Pane](results.png)
 
 Whether you are at the corner of two popular roads, like Dundas Street and Spadina Avenue, a subway station like Wellesley subway station, a landmark such as the Hockey Hall of Fame, or for your navigation preferences, latitude and longitude coordinates, ToronHot Dog is made to take into account your current location and find a hot dog stand close by, whether with preferences or not.
 
